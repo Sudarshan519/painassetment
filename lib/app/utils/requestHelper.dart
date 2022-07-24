@@ -29,17 +29,16 @@ class HttpRequestHandler extends GetConnect {
                   ? {"Authorization": "Bearer $token"}
                   : {
                       'Content-Type': 'application/json',
-                    });
-          // print(resp);
+                    }); 
           if (!resp.hasError) {
             if (resp.statusCode! >= 200 && resp.statusCode! < 300) {
               return resp.body;
             } else {
-              return resp.body ?? resp.statusText;
+              return {"status": "error", "message": resp.statusText};
             }
           } else {
             // print(resp.body);
-            return {"status": "error", "message": "Server Error"};
+            return {"status": "error", "message": resp.body["message"]};
           }
         } catch (e) {
           return {"status": "error", "message": "Server Error"};

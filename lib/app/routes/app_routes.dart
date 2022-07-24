@@ -11,6 +11,15 @@ abstract class Routes {
       _Paths.REGISTER_INCOMING_TRANSACTIONS;
   static const REGISTER_OUTGOING_TRANSACTIONS =
       _Paths.REGISTER_OUTGOING_TRANSACTIONS;
+  static const ROLES = _Paths.ROLES;
+  static const BANKS = _Paths.BANKS;
+  static const ACCOUNTS = _Paths.ACCOUNTS;
+  static const TRANSITION = _Paths.TRANSITION;
+  static const ADD_ACCOUNT = _Paths.ADD_ACCOUNT;
+  static const ADD_BANK = _Paths.ADD_BANK;
+  static const PARTIES = _Paths.PARTIES;
+  static const ADD_TRANSACTION = _Paths.ADD_TRANSACTION;
+  static const ADD_PARTY = _Paths.ADD_PARTY;
 }
 
 abstract class _Paths {
@@ -23,4 +32,13 @@ abstract class _Paths {
       '/register-incoming-transactions';
   static const REGISTER_OUTGOING_TRANSACTIONS =
       '/register-outgoing-transactions';
+  static const ROLES = '/roles';
+  static const BANKS = '/banks';
+  static const ACCOUNTS = '/accounts';
+  static const TRANSITION = '/transition';
+  static const ADD_ACCOUNT = '/add-account';
+  static const ADD_BANK = '/add-bank';
+  static const PARTIES = '/parties';
+  static const ADD_TRANSACTION = '/add-transaction';
+  static const ADD_PARTY = '/add-party';
 }

@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
+import 'package:paymentmanagement/app/routes/app_pages.dart';
+import 'package:paymentmanagement/app/utils/getsnackbar.dart';
 import 'package:paymentmanagement/app/utils/requestHelper.dart';
 
-class AuthController extends GetxController { 
-
+class AuthController extends GetxController {
   final count = 0.obs;
   var login = true.obs;
 
@@ -12,6 +14,8 @@ class AuthController extends GetxController {
   final password = TextEditingController();
   @override
   void onInit() {
+    username.text = "abc@gmail.com";
+    password.text = "def@gmail.com";
     super.onInit();
   }
 
@@ -28,26 +32,34 @@ class AuthController extends GetxController {
   void onClose() {}
   void increment() => count.value++;
 
-  Future<bool> loginSubmit() async {
+  loginSubmit() async {
+    Get.dialog(AlertDialog(
+      content: Container(
+        height: 100,
+        width: 100,
+        alignment: Alignment.center,
+        color: Colors.white,
+        child: const CircularProgressIndicator(),
+      ),
+    )); 
     var result = await requestHandler.sendRequest('POST', ApiEndpoints.login,
-        requestBody: {"username":username.text, "password":password.text});
- 
-    if (result['status'] == 'success') {
-      return true;
+        requestBody: {"username": username.text, "password": password.text});
+    Get.back();
+    if (result['status'] == "error") {
+      getSnackbar(message: result['message']);
     } else {
-      return false;
+      Get.offNamed(Routes.DASHBOARD, arguments: result);
     }
   }
 
   signupSubmit() async {
     var result = await requestHandler.sendRequest('POST', ApiEndpoints.signup,
-        requestBody: {"username":username.text, "password":password.text});
+        requestBody: {"username": username.text, "password": password.text});
 
-    
-    if (result['status'] == 'success') {
-      return true;
+    if (result['status'] == "error") {
+      getSnackbar(message: result['message']);
     } else {
-      return false;
+      Get.offNamed(Routes.DASHBOARD, arguments: result);
     }
   }
 }

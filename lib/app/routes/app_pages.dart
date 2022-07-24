@@ -1,24 +1,42 @@
 import 'package:get/get.dart';
 
+import '../modules/accounts/bindings/accounts_binding.dart';
+import '../modules/accounts/views/accounts_view.dart';
+import '../modules/add_account/bindings/add_account_binding.dart';
+import '../modules/add_account/views/add_account_view.dart';
+import '../modules/add_bank/bindings/add_bank_binding.dart';
+import '../modules/add_bank/views/add_bank_view.dart';
+import '../modules/add_party/bindings/add_party_binding.dart';
+import '../modules/add_party/views/add_party_view.dart';
+import '../modules/add_transaction/bindings/add_transaction_binding.dart';
+import '../modules/add_transaction/views/add_transaction_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
+import '../modules/banks/bindings/banks_binding.dart';
+import '../modules/banks/views/banks_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/parties/bindings/parties_binding.dart';
+import '../modules/parties/views/parties_view.dart';
 import '../modules/register_incoming_transactions/bindings/register_incoming_transactions_binding.dart';
 import '../modules/register_incoming_transactions/views/register_incoming_transactions_view.dart';
 import '../modules/register_outgoing_transactions/bindings/register_outgoing_transactions_binding.dart';
 import '../modules/register_outgoing_transactions/views/register_outgoing_transactions_view.dart';
+import '../modules/roles/bindings/roles_binding.dart';
+import '../modules/roles/views/roles_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
+import '../modules/transition/bindings/transition_binding.dart';
+import '../modules/transition/views/transition_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DASHBOARD;
+  static const INITIAL = Routes.SPLASHSCREEN;
 
   static final routes = [
     GetPage(
@@ -50,6 +68,51 @@ class AppPages {
       name: _Paths.REGISTER_OUTGOING_TRANSACTIONS,
       page: () => RegisterOutgoingTransactionsView(),
       binding: RegisterOutgoingTransactionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ROLES,
+      page: () => RolesView(),
+      binding: RolesBinding(),
+    ),
+    GetPage(
+      name: _Paths.BANKS,
+      page: () => BanksView(),
+      binding: BanksBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACCOUNTS,
+      page: () => AccountsView(),
+      binding: AccountsBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRANSITION,
+      page: () => TransitionView(),
+      binding: TransitionBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_ACCOUNT,
+      page: () => AddAccountView(),
+      binding: AddAccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_BANK,
+      page: () => AddBankView(),
+      binding: AddBankBinding(),
+    ),
+    GetPage(
+      name: _Paths.PARTIES,
+      page: () => PartiesView(),
+      binding: PartiesBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_TRANSACTION,
+      page: () => AddTransactionView(),
+      binding: AddTransactionBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_PARTY,
+      page: () => AddPartyView(),
+      binding: AddPartyBinding(),
     ),
   ];
 }

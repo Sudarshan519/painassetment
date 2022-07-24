@@ -59,17 +59,20 @@ class ChartWidget extends StatelessWidget {
     //   lineWidth: 1
     // ),
             plotAreaBorderWidth: 0,
-          
+            backgroundColor: Colors.transparent,
+            
               primaryXAxis: CategoryAxis(
-                
+             
               interactiveTooltip: InteractiveTooltip(enable: true),
                  majorGridLines: const MajorGridLines(width: 0), 
               ),
-              // primaryYAxis: CategoryAxis(
-              // interactiveTooltip: InteractiveTooltip(enable: true),
-              //   majorGridLines: const MajorGridLines(width: 0),
+            primaryYAxis: NumericAxis(
+                axisLine: AxisLine(width: 0, color: Colors.transparent),
+                interactiveTooltip: InteractiveTooltip(enable: true),
+                // majorGridLines: const MajorGridLines(width: 0),
+                minorGridLines: const MinorGridLines(width: 0)
 
-              // ),              // Chart title
+            ), // Chart title
               title: ChartTitle(text: 'Transaction Analysis'),
               // Enable legend
               
@@ -81,6 +84,7 @@ class ChartWidget extends StatelessWidget {
                 LineSeries<SalesData, String>( 
                     dataSource: data,
                     enableTooltip: true,
+                    
                     xValueMapper: (SalesData sales, _) => sales.year,
                     yValueMapper: (SalesData sales, _) => sales.sales,
                     name: 'Outgoing', 

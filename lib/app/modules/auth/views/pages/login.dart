@@ -48,21 +48,7 @@ class Login extends StatelessWidget {
             child: ElevatedButton(
                 onPressed: () async {
                   if (formkey.currentState!.validate()) {
-                    Get.dialog(AlertDialog(
-                      content: Container(
-                        height: 100,
-                        width: 100,
-                        alignment: Alignment.center,
-                        color: Colors.white,
-                        child: const CircularProgressIndicator(),
-                      ),
-                    ));
-                    var loginSuccess = await authController.loginSubmit();
-
-                    Get.back();
-                    if (loginSuccess) {
-                      Get.offNamed(Routes.DASHBOARD);
-                    }
+                    authController.loginSubmit();
                   }
                 },
                 child: Text('Login'))),
@@ -90,8 +76,10 @@ class CustomTextField extends StatelessWidget {
       required this.controller,
       this.validator,
       this.enabled = true,
-      this.obscureText = false})
+      this.obscureText = false,
+      this.isnum = false})
       : super(key: key);
+  final bool isnum;
   final String label;
   final bool enabled;
   final TextEditingController controller;
@@ -100,12 +88,14 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+keyboardType: isnum ? TextInputType.number : null,
       enabled: enabled,
       validator: validator,
       controller: controller,
       obscureText: obscureText,
-       
-      decoration: InputDecoration(label: Text(label)),
+      decoration: InputDecoration(
+        label: Text(label),
+      ),
     );
   }
 }

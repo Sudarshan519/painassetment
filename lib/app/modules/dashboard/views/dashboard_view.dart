@@ -16,41 +16,33 @@ class DashboardView extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
+    // print(controller.token.value);
     var height = Get.size.height;
     var width = Get.size.width;
     var scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.blue,
-        drawer: Drawer(
-            child: ListView(
-          children: [
-            const UserAccountsDrawerHeader(
-                accountName: Text(''), accountEmail: Text('')),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              onTap: () {
-                Get.toNamed(Routes.AUTH);
-              },
-              title: const Text('Logout'),
-            ),
-          ],
-        )),
+        drawer: DrawerWidget(),
         body: ResponsiveWidget(
           tabletScreen: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               HeaderWidget(scaffoldKey: scaffoldKey),
-            ],),
+            ],
+          ),
           desktopScreen: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            HeaderWidget(scaffoldKey: scaffoldKey), ],
+              HeaderWidget(scaffoldKey: scaffoldKey),
+            ],
           ),
-          mobileScreen: Column(
+          mobileScreen: controller.token.value == ''
+              ? Text('Unauthorized')
+              : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             HeaderWidget(scaffoldKey: scaffoldKey),
+                    HeaderWidget(scaffoldKey: scaffoldKey),
               Expanded(
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
@@ -112,11 +104,17 @@ class DashboardView extends GetView<DashboardController> {
                           const SizedBox(
                             height: 60,
                           ),
-  Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Text("Our Services",style: Theme.of(context).textTheme.titleLarge,),
-  ),
-  const SizedBox(height: 16,),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Our Services",
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
                           const AllTransactionsWidgets(),
                           const ChartWidget(),
                         ],
@@ -128,6 +126,58 @@ class DashboardView extends GetView<DashboardController> {
             ],
           ),
         ));
+  }
+}
+
+class DrawerWidget extends StatelessWidget {
+  const DrawerWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+        child: ListView(
+      children: [
+        const UserAccountsDrawerHeader(
+            accountName: Text(''), accountEmail: Text('')),
+        // ListTile(
+        //   leading: const Icon(Icons.person),
+        //   onTap: () {
+        //     Get.toNamed(Routes.ROLES);
+        //   },
+        //   title: const Text('Roles'),
+        // ),
+        ListTile(
+          leading: const Icon(Icons.account_balance),
+          onTap: () {
+            Get.toNamed(Routes.ACCOUNTS);
+          },
+          title: const Text('Accounts'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.monetization_on),
+          onTap: () {
+            Get.toNamed(Routes.BANKS);
+          },
+          title: const Text('Banks'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.people),
+          onTap: () {
+            Get.toNamed(Routes.PARTIES);
+          },
+          title: const Text('Parties'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.logout),
+          onTap: () {
+            Get.toNamed(Routes.AUTH);
+          },
+          title: const Text('Logout'),
+        ),
+      ],
+    ));
   }
 }
 
@@ -145,8 +195,7 @@ class HeaderWidget extends StatelessWidget {
       height: 120,
       color: Colors.blue,
       padding: const EdgeInsets.all(20),
-      child:
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         IconButton(
             onPressed: () {
               scaffoldKey.currentState!.openDrawer();
@@ -352,8 +401,10 @@ class TransitionWidget extends StatelessWidget {
             child: Text(
               label,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.grey[700]),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(color: Colors.grey[700]),
             ),
           ),
           const SizedBox(

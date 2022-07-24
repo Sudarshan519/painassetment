@@ -1,13 +1,11 @@
 import 'package:get/get.dart';
 
-class DashboardController extends GetxController {
-  //TODO: Implement DashboardController
-  var token = "".obs;
+class AddTransactionController extends GetxController {
+  //TODO: Implement AddTransactionController
+
   final count = 0.obs;
   @override
   void onInit() {
-    var data = Get.arguments;
-    if (data != null) token.value = (data['access_token']);
     super.onInit();
   }
 
