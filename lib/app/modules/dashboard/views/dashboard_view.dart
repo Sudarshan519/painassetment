@@ -170,6 +170,13 @@ class DrawerWidget extends StatelessWidget {
           title: const Text('Parties'),
         ),
         ListTile(
+          leading: const Icon(Icons.people),
+          onTap: () {
+            Get.toNamed(Routes.CHEQUE_TRANSACTIONS);
+          },
+          title: const Text('Cheque Transactions'),
+        ),
+        ListTile(
           leading: const Icon(Icons.logout),
           onTap: () {
             Get.toNamed(Routes.AUTH);

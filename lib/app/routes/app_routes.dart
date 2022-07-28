@@ -20,6 +20,9 @@ abstract class Routes {
   static const PARTIES = _Paths.PARTIES;
   static const ADD_TRANSACTION = _Paths.ADD_TRANSACTION;
   static const ADD_PARTY = _Paths.ADD_PARTY;
+  static const ADD_TRANSACTIONS = _Paths.ADD_TRANSACTIONS;
+  static const ADD_ROLE = _Paths.ADD_ROLE;
+  static const CHEQUE_TRANSACTIONS = _Paths.CHEQUE_TRANSACTIONS;
 }
 
 abstract class _Paths {
@@ -41,4 +44,7 @@ abstract class _Paths {
   static const PARTIES = '/parties';
   static const ADD_TRANSACTION = '/add-transaction';
   static const ADD_PARTY = '/add-party';
+  static const ADD_TRANSACTIONS = '/add-transactions';
+  static const ADD_ROLE = '/add-role';
+  static const CHEQUE_TRANSACTIONS = '/cheque-transactions';
 }

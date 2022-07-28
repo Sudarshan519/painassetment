@@ -1,5 +1,6 @@
 class ApiEndpoints {
-  static const baseUrl = "http://192.168.1.70:3000";
+  static const baseUrl =
+      "http://54.197.149.55:3000"; //"http://192.168.1.70:3000";
   static const login = baseUrl + "/auth/login";
   static const signup = baseUrl + "/user";
   static const getroles = baseUrl + "/auth/roles";

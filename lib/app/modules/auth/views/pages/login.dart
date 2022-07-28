@@ -77,7 +77,8 @@ class CustomTextField extends StatelessWidget {
       this.validator,
       this.enabled = true,
       this.obscureText = false,
-      this.isnum = false})
+      this.isnum = false,
+      this.desc = false})
       : super(key: key);
   final bool isnum;
   final String label;
@@ -85,16 +86,30 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool obscureText;
   final validator;
+  final bool desc;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-keyboardType: isnum ? TextInputType.number : null,
+    return obscureText
+        ? TextFormField(
+            keyboardType: isnum ? TextInputType.number : null,
       enabled: enabled,
-      validator: validator,
-      controller: controller,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        label: Text(label),
+            // maxLines: desc ? 4 : null,
+            validator: validator,
+            controller: controller,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              label: Text(label),
+            ),
+          )
+        : TextFormField(
+            keyboardType: isnum ? TextInputType.number : null,
+            enabled: enabled,
+            maxLines: desc ? 4 : null,
+            validator: validator,
+            controller: controller,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              label: Text(label), 
       ),
     );
   }

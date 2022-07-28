@@ -33,5 +33,9 @@ class AddAccountController extends GetxController {
           "openingBalance": double.parse(startingamt.text)
         });
     print(res);
+    if (res is String) {
+    } else {
+      Get.back();
+    }
   }
 }

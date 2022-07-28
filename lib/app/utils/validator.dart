@@ -11,6 +11,17 @@ String? validatePassword(String? string) {
   }
 }
 
+///validate balance
+String? validateBalance(String? string) {
+  if (string!.isEmpty || string == "") {
+    return "* Required";
+  } else if (int.parse(string) < 500) {
+    return "amount must be greater then 500";
+  } else {
+    return null;
+  }
+}
+
 String? confirmPassword({required String password, required String cPassword}) {
   if (password == cPassword) {
     return null;

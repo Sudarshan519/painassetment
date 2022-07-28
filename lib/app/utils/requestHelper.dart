@@ -7,20 +7,35 @@ class HttpRequestHandler extends GetConnect {
       {var requestHeader, var requestBody, token}) async {
     try {
       if (requestType == "GET") {
-        var resp = await get(requestUrl,
-            headers: token != null
-                ? {
-                    'Content-Type': 'application/json',
-                    "Authorization": "Bearer $token"
-                  }
-                : {
-                    'Content-Type': 'application/json',
-                  });
+        if (requestBody == null) {
+          var resp = await get(requestUrl,
+              headers: token != null
+                  ? {
+                      'Content-Type': 'application/json',
+                      "Authorization": "Bearer $token"
+                    }
+                  : {
+                      'Content-Type': 'application/json',
+                    });
 
-        if (resp.statusCode == 200) {
-          return resp.body;
+          if (resp.statusCode == 200) {
+            return resp.body;
+          } else {
+            return (resp.body ?? resp.statusText);
+          }
         } else {
-          return (resp.body ?? resp.statusText);
+          var resp = await httpClient.request(requestUrl, 'GET',
+              body: requestBody,
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer $token"
+              });
+          print(resp.body);
+          if (resp.statusCode == 200) {
+            return resp.body;
+          } else {
+            return (resp.body ?? resp.statusText);
+          }
         }
       } else {
         try {
@@ -29,7 +44,7 @@ class HttpRequestHandler extends GetConnect {
                   ? {"Authorization": "Bearer $token"}
                   : {
                       'Content-Type': 'application/json',
-                    }); 
+                    });
           if (!resp.hasError) {
             if (resp.statusCode! >= 200 && resp.statusCode! < 300) {
               return resp.body;

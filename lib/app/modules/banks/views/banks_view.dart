@@ -6,27 +6,37 @@ import 'package:paymentmanagement/app/routes/app_pages.dart';
 import '../controllers/banks_controller.dart';
 
 class BanksView extends GetView<BanksController> {
+  const BanksView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Banks'),
+        title: const Text('My Banks'),
         centerTitle: true,
       ),
       body: Obx(() => controller.bankloading.value
           ? const Text("Loading")
           : controller.banks.isEmpty
               ? const Text("No accounts")
-              : Column(
-                  children: controller.banks
-                      .map((element) => Card(child: Text(element.toString())))
-                      .toList(),
+              : SingleChildScrollView(
+                  child: Column(
+                    children: controller.banks
+                        .map((element) => ListTile(
+                              leading: const Icon(Icons.account_balance),
+                              subtitle:
+                                  Text(element['accountNumber'].toString()),
+                              title: Text(element['name'].toString()),
+                            ))
+                        .toList(),
+                  ),
                 )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(Routes.ADD_BANK);
+        onPressed: () async {
+          await Get.toNamed(Routes.ADD_BANK);
+          controller.getBanks();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

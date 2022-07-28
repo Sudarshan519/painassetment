@@ -19,26 +19,28 @@ class AddAccountView extends GetView<AddAccountController> {
           padding: const EdgeInsets.all(18.0),
           child: Form(
             key: _formkey,
-            child: Column(children: [
-              CustomTextField(
-                  validator: validateIsEmpty,
-                  label: 'label',
-                  controller: controller.name),
-              CustomTextField(
-                  validator: (v) => validateMinLength(string: v, length: 3),
-                  label: 'openingBalance',
-                  controller: controller.startingamt),
-              SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        if (_formkey.currentState!.validate()) {
-                          controller.submit();
-                        }
-                      },
-                      child: const Text('Submit')))
-            ]),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                CustomTextField(
+                    validator: validateIsEmpty,
+                    label: 'label',
+                    controller: controller.name),
+                CustomTextField(
+                    validator: (v) => validateMinLength(string: v, length: 3),
+                    label: 'openingBalance',
+                    controller: controller.startingamt),
+                SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (_formkey.currentState!.validate()) {
+                            controller.submit();
+                          }
+                        },
+                        child: const Text('Submit')))
+              ]),
+            ),
           ),
         ));
   }

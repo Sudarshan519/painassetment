@@ -8,12 +8,18 @@ import '../modules/add_bank/bindings/add_bank_binding.dart';
 import '../modules/add_bank/views/add_bank_view.dart';
 import '../modules/add_party/bindings/add_party_binding.dart';
 import '../modules/add_party/views/add_party_view.dart';
+import '../modules/add_role/bindings/add_role_binding.dart';
+import '../modules/add_role/views/add_role_view.dart';
 import '../modules/add_transaction/bindings/add_transaction_binding.dart';
 import '../modules/add_transaction/views/add_transaction_view.dart';
+import '../modules/add_transactions/bindings/add_transactions_binding.dart';
+import '../modules/add_transactions/views/add_transactions_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/banks/bindings/banks_binding.dart';
 import '../modules/banks/views/banks_view.dart';
+import '../modules/cheque_transactions/bindings/cheque_transactions_binding.dart';
+import '../modules/cheque_transactions/views/cheque_transactions_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -28,8 +34,8 @@ import '../modules/roles/bindings/roles_binding.dart';
 import '../modules/roles/views/roles_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
-import '../modules/transition/bindings/transition_binding.dart';
-import '../modules/transition/views/transition_view.dart';
+import '../modules/transactions/bindings/transition_binding.dart';
+import '../modules/transactions/views/transition_view.dart';
 
 part 'app_routes.dart';
 
@@ -113,6 +119,21 @@ class AppPages {
       name: _Paths.ADD_PARTY,
       page: () => AddPartyView(),
       binding: AddPartyBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_TRANSACTIONS,
+      page: () => AddTransactionsView(),
+      binding: AddTransactionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_ROLE,
+      page: () => AddRoleView(),
+      binding: AddRoleBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHEQUE_TRANSACTIONS,
+      page: () => ChequeTransactionsView(),
+      binding: ChequeTransactionsBinding(),
     ),
   ];
 }

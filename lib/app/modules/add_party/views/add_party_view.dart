@@ -15,39 +15,41 @@ class AddPartyView extends GetView<AddPartyController> {
           title: Text('Add Payment Party'),
           centerTitle: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Form(
-            key: _formkey,
-            child: Column(children: [
-              CustomTextField(
-                  validator: validateIsEmpty,
-                  label: 'Name',
-                  controller: controller.name),
-              CustomTextField(
-                  validator: (v) => validateMinLength(string: v, length: 3),
-                  label: 'Address',
-                  controller: controller.address),
-              CustomTextField(
-                  validator: validatePhone,
-                  isnum: true,
-                  label: 'Phone',
-                  controller: controller.phone),
-              CustomTextField(
-                  validator: (v) => validateEmail(v),
-                  label: 'email',
-                  controller: controller.email),
-              SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        if (_formkey.currentState!.validate()) {
-                          controller.submit();
-                        }
-                      },
-                      child: const Text('Submit')))
-            ]),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Form(
+              key: _formkey,
+              child: Column(children: [
+                CustomTextField(
+                    validator: validateIsEmpty,
+                    label: 'Name',
+                    controller: controller.name),
+                CustomTextField(
+                    validator: (v) => validateMinLength(string: v, length: 3),
+                    label: 'Address',
+                    controller: controller.address),
+                CustomTextField(
+                    validator: validatePhone,
+                    isnum: true,
+                    label: 'Phone',
+                    controller: controller.phone),
+                CustomTextField(
+                    validator: (v) => validateEmail(v),
+                    label: 'email',
+                    controller: controller.email),
+                SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (_formkey.currentState!.validate()) {
+                            controller.submit();
+                          }
+                        },
+                        child: const Text('Submit')))
+              ]),
+            ),
           ),
         ));
   }

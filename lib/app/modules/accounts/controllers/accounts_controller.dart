@@ -4,31 +4,43 @@ import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_co
 import 'package:paymentmanagement/app/utils/requestHelper.dart';
 
 class AccountsController extends GetxController {
-  final DashboardController homeController = Get.find();
+  final DashboardController dashboardController = Get.find();
 
-  
   final count = 0.obs;
   var accounts = [].obs;
   var accountloading = false.obs;
-  getAccount() async {
-    var res = await requestHandler.sendRequest('GET', ApiEndpoints.account,
-        token: homeController.token.value);
-    accountloading.value = false;
-    accounts.addAll(res);
+  var parties = [].obs;
+  var partiesloading = false.obs;
+  var allAccounts = [].obs;
+  getParties() async {
+    partiesloading.value = true;
+    var res = await requestHandler.sendRequest('GET', ApiEndpoints.party,
+        token: dashboardController.token.value);
+
+    parties.addAll(res);
+    partiesloading.value = false;
+    print(res);
   }
 
-  
+  getAccount() async {
+    var res = await requestHandler.sendRequest('GET', ApiEndpoints.account,
+        token: dashboardController.token.value);
+    accountloading.value = false;
+    accounts.addAll(res);
+    allAccounts.addAll(res);
+  }
 
   sendMoney() async {
     var body = {'from': '1', 'to': '2', "amount": 50};
     var res = await requestHandler.sendRequest(
-        'POST', ApiEndpoints.account + '/transaction',
-        token: homeController.token.value);
+        'POST', '${ApiEndpoints.account}/transaction',
+        token: dashboardController.token.value);
   }
 
   @override
   void onInit() {
     getAccount();
+    getParties();
     super.onInit();
   }
 

@@ -8,19 +8,19 @@ class BanksController extends GetxController {
   final count = 0.obs;
   var bankloading = false.obs;
   var banks = [].obs;
-  getAccount() async {
+  getBanks() async {
     banks.clear();
     bankloading.value = true;
     var res = await requestHandler.sendRequest('GET', ApiEndpoints.bank,
         token: homeController.token.value);
-
+    print(res);
     bankloading.value = false;
     banks.addAll(res);
   }
 
   @override
   void onInit() {
-    getAccount();
+    getBanks();
     super.onInit();
   }
 
