@@ -10,18 +10,33 @@ class ChequeTransactionsController extends GetxController {
   final count = 0.obs;
   var cheques = [].obs;
   var loading = false.obs;
+  var accounts = [].obs;
+  var allAccounts = [].obs;
+  var selectedAccountId = ''.obs;
+  var isPending = true.obs;
+  var received = false.obs;
+  var bounced = false.obs;
+  getAccount() async {
+    var res = await requestHandler.sendRequest('GET', ApiEndpoints.account,
+        token: dashboardController.token.value);
+
+    accounts.addAll(res);
+    allAccounts.addAll(res);
+  }
+
   @override
   void onInit() {
     getChequeTransactions();
+    getAccount();
     super.onInit();
   }
 
   getChequeTransactions() async {
     var body = {
-      "pending": true,
-      "bounced": false,
-      "received": false,
-      "partyId": 1
+      "pending": isPending.value,
+      "bounced": bounced.value,
+      "received": received.value,
+      // "partyId": 1
     };
     cheques.clear();
     var resp = await requestHandler.sendRequest(
@@ -35,21 +50,21 @@ class ChequeTransactionsController extends GetxController {
   }
 
   bounceCheque(element) async {
-    // Get.dialog(AlertDialog())
+    // Get.dialog(Ale`rtDialog())
     var resp = await requestHandler.sendRequest(
         'POST', "${ApiEndpoints.party}/cheque/bounce",
         token: dashboardController.token.value,
         requestBody: {
           "bankId": element["bankId"],
-          "chequeNumber": element["chequeNumber"],
+          "chequeNumber": int.parse(element["chequeNumber"]),
           "description": element['detailJson']['decsription'],
           "bounceDate": DateTime.now().toIso8601String()
         });
-    // print(resp);
+    print(resp);
     if (resp is String) {
       getSnackbar(message: resp);
     } else {
-      cheques.addAll(resp);
+      getChequeTransactions();
     }
   }
 
@@ -59,15 +74,22 @@ class ChequeTransactionsController extends GetxController {
         token: dashboardController.token.value,
         requestBody: {
           "bankId": element["bankId"],
-          "chequeNumber": element["chequeNumber"],
+          "chequeNumber": int.parse(element["chequeNumber"]),
           "description": element['detailJson']['decsription'],
-          "postTo": 1
+          "postTo": int.parse(selectedAccountId.value)
         });
     print(resp);
     if (resp is String) {
       getSnackbar(message: resp);
     } else {
-      cheques.addAll(resp);
+      Get.back();
+      if (resp['status'] == 'error') {
+        getSnackbar(message: resp['message']);
+      } else {
+        getChequeTransactions();
+      }
+
+      // cheques.addAll(resp);
     }
   }
 

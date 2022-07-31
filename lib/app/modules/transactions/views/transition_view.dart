@@ -18,7 +18,7 @@ class TransitionView extends GetView<TransitionController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transaction'),
+        title: const Text('Transactions'),
         centerTitle: true,
       ),
       body: Center(
@@ -134,6 +134,7 @@ class AddTransactions extends StatelessWidget {
                     ),
                     items: [
                       ...transitionController.accountsController.accounts
+                          .where((p0) => p0['externallyManaged'] == false)
                           .map((element) => DropdownMenuItem(
                               value: element['id'].toString(),
                               child: Text(element['name'].toString())))
@@ -155,6 +156,7 @@ class AddTransactions extends StatelessWidget {
                       hintText: 'To',
                     ),
                     items: transitionController.accountsController.accounts
+                        .where((p0) => p0['externallyManaged'] == false)
                         .map((element) => DropdownMenuItem(
                             value: element['id'].toString(),
                             child: Text(element['name'].toString())))

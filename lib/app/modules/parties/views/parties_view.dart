@@ -67,9 +67,9 @@ class PartiesView extends GetView<PartiesController> {
                                   ));
                                 },
                                 child: const Text('Create \nTransactions')),
-                            title: Text(element.toString() +
+                            title: Text(//element.toString() +
                                 element['name'].toString()),
-                            subtitle: Text(element['address'].toString()),
+                            subtitle: Text(element['phone'].toString()),
                           ))
                       .toList(),
                 ))),
@@ -85,6 +85,10 @@ class PartiesView extends GetView<PartiesController> {
   }
 }
 
+class AddPartyTransactionController extends GetxController {
+  var isReceived = false.obs;
+}
+
 class AddPartyTransactions extends StatelessWidget {
   AddPartyTransactions({Key? key, this.isCash = true}) : super(key: key);
   final bool isCash;
@@ -98,6 +102,8 @@ class AddPartyTransactions extends StatelessWidget {
 // }
   final PartiesController partiesController = Get.find();
   final DashboardController dashboardController = Get.find();
+  final addPartyTransactionController =
+      Get.put(AddPartyTransactionController());
   final partyId = TextEditingController();
   final postto = TextEditingController();
   final amount = TextEditingController();
@@ -130,7 +136,7 @@ class AddPartyTransactions extends StatelessWidget {
                 "chequeDate": chequeDate.text,
                 "requestedDate": requestedDate.text,
                 "description": desc.text,
-                "received": false
+                "received": addPartyTransactionController.isReceived.value
               });
     print(res);
     if (res['status'] == 'error') {
@@ -284,6 +290,20 @@ class AddPartyTransactions extends StatelessWidget {
                         // isnum: true,
                         label: 'Requested Date',
                         controller: requestedDate),
+                  ),
+                if (!isCash)
+                  Row(
+                    children: [
+                      Obx(() => Text(
+                          !addPartyTransactionController.isReceived.value
+                              ? 'Sending'
+                              : "Receiving")),
+                      Obx(() => Checkbox(
+                          value: addPartyTransactionController.isReceived.value,
+                          onChanged: (v) {
+                            addPartyTransactionController.isReceived.value = v!;
+                          }))
+                    ],
                   ),
                 CustomTextField(
                     validator: (v) => validateMinLength(string: v, length: 3),
