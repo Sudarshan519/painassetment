@@ -7,7 +7,7 @@ import 'package:paymentmanagement/app/modules/auth/views/pages/login.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:paymentmanagement/app/routes/app_pages.dart';
 import 'package:paymentmanagement/app/utils/getsnackbar.dart';
-import 'package:paymentmanagement/app/utils/requestHelper.dart';
+import 'package:paymentmanagement/app/utils/request_helper.dart';
 import 'package:paymentmanagement/app/utils/validator.dart';
 
 import '../controllers/parties_controller.dart';
@@ -138,7 +138,7 @@ class AddPartyTransactions extends StatelessWidget {
                 "description": desc.text,
                 "received": addPartyTransactionController.isReceived.value
               });
-    print(res);
+    debugPrint(res);
     if (res['status'] == 'error') {
       getSnackbar(message: res['message'], bgColor: Colors.red);
     } else {

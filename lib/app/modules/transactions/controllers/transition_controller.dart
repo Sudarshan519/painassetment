@@ -1,9 +1,10 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/accounts/controllers/accounts_controller.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
-import 'package:paymentmanagement/app/utils/requestHelper.dart';
-import 'package:paymentmanagement/app/utils/storageService.dart';
+import 'package:paymentmanagement/app/utils/request_helper.dart';
+import 'package:paymentmanagement/app/utils/storage_service.dart';
 
 class TransitionController extends GetxController {
   final DashboardController dashboardController = Get.find();
@@ -27,8 +28,7 @@ class TransitionController extends GetxController {
         token: dashboardController.token.value);
 
     parties.addAll(res);
-    partiesloading.value = false;
-    print(res);
+    partiesloading.value = false; 
   }
 
   @override

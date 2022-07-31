@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:paymentmanagement/app/modules/auth/controllers/auth_controller.dart';
-import 'package:paymentmanagement/app/routes/app_pages.dart';
+import 'package:paymentmanagement/app/modules/auth/controllers/auth_controller.dart'; 
 import 'package:paymentmanagement/app/utils/validator.dart';
 
 class Login extends StatelessWidget {
@@ -20,7 +19,7 @@ class Login extends StatelessWidget {
         Text('Login',
             style: Theme.of(context)
                 .textTheme
-                .titleLarge!
+                .headline6!
                 .copyWith(fontWeight: FontWeight.bold)),
         SizedBox(
           height: 20,
@@ -59,10 +58,16 @@ class Login extends StatelessWidget {
           onTap: () {
             authController.changePage();
           },
-          child: Text.rich(TextSpan(children: [
-            TextSpan(text: "Don't have account"),
+          child: Text.rich(
+              textAlign: TextAlign.center,
+              TextSpan(
+                children: [
+                  TextSpan(
+                      text: "Don't have account\n",
+                      style: Theme.of(context).textTheme.bodyLarge),
             TextSpan(text: "Signup"),
-          ])),
+                ],
+              )),
         ),
       ]),
     );
@@ -99,6 +104,8 @@ class CustomTextField extends StatelessWidget {
             obscureText: obscureText,
             decoration: InputDecoration(
               label: Text(label),
+              // filled: true,
+              // border: OutlineInputBorder(borderSide: BorderSide.none)
             ),
           )
         : TextFormField(
@@ -110,6 +117,8 @@ class CustomTextField extends StatelessWidget {
             obscureText: obscureText,
             decoration: InputDecoration(
               label: Text(label), 
+              // filled: true,
+              // border: OutlineInputBorder(borderSide: BorderSide.none)
       ),
     );
   }

@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/data/models/transaction.dart';
 
-class RegisterOutgoingTransactionsController extends GetxController {
-  //TODO: Implement RegisterOutgoingTransactionsController
+class RegisterOutgoingTransactionsController extends GetxController { 
   var promiseType = ''.obs;
   var promisetype = PromiseType.CASH.obs;
   var selectedImages = [].obs;

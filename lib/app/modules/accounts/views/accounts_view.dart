@@ -66,42 +66,51 @@ class AccountsView extends GetView<AccountsController> {
                                         Get.toNamed(Routes.TRANSITION,
                                             arguments: element["id"]);
                                       },
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(element['id'].toString()),
-                                          Text(element['name'].toString()),
-                                          Text(element['createdAt'].toString()),
-                                          Text(element['amount'].toString()),
-                                          Text(element['externallyManaged']
-                                              .toString()),
-                                          const Text('Last Transaction'),
-                                          // Text(element['resultingAmount'].toString()),
-                                          ...element['transactions'].map((e) =>
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(e['detailJson']['tags']
-                                                          [0]
-                                                      .toString()),
-                                                  Text(e['amount'].toString()),
-                            
-                                                  // Text(e['createdAt'])
-                                                ],
-                                              )),
-                                          const SizedBox(
-                                            height: 20,
-                                          )
-                                          // Text(element['name'].toString()),
-                                          // ...element['transactions'].map((e) => Text(
-                                          //     e['detailJson']['tags'].toString() +
-                                          //         '\n' +
-                                          //         e["amount"].toString())),
-                                        ],
+                                      child: Card(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              // Text(element['id'].toString()),
+                                              Text(element['name'].toString()),
+                                              Text(element['createdAt']
+                                                  .toString()),
+                                              Text(
+                                                  element['amount'].toString()),
+                                              Text(element['externallyManaged']
+                                                  .toString()),
+                                              const Text('Last Transaction'),
+                                              // Text(element['resultingAmount'].toString()),
+                                              ...element['transactions']
+                                                  .map((e) => Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(e['detailJson']
+                                                                  ['tags'][0]
+                                                              .toString()),
+                                                          Text(e['amount']
+                                                              .toString()),
+
+                                                          // Text(e['createdAt'])
+                                                        ],
+                                                      )),
+                                              const SizedBox(
+                                                height: 20,
+                                              )
+                                              // Text(element['name'].toString()),
+                                              // ...element['transactions'].map((e) => Text(
+                                              //     e['detailJson']['tags'].toString() +
+                                              //         '\n' +
+                                              //         e["amount"].toString())),
+                                            ],
+                                          ),
+                                        ),
                                       )),
                                 ))
                             .toList(),

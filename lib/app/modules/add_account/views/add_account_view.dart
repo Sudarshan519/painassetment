@@ -25,10 +25,16 @@ class AddAccountView extends GetView<AddAccountController> {
                     validator: validateIsEmpty,
                     label: 'label',
                     controller: controller.name),
+                const SizedBox(
+                  height: 10,
+                ),
                 CustomTextField(
                     validator: (v) => validateMinLength(string: v, length: 3),
                     label: 'openingBalance',
                     controller: controller.startingamt),
+                const SizedBox(
+                  height: 10,
+                ),
                 SizedBox(
                     width: double.infinity,
                     height: 50,

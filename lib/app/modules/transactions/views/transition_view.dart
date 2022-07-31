@@ -6,7 +6,7 @@ import 'package:paymentmanagement/app/modules/auth/views/pages/login.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:paymentmanagement/app/routes/app_pages.dart';
 import 'package:paymentmanagement/app/utils/getsnackbar.dart';
-import 'package:paymentmanagement/app/utils/requestHelper.dart';
+import 'package:paymentmanagement/app/utils/request_helper.dart';
 import 'package:paymentmanagement/app/utils/validator.dart';
 
 import '../controllers/transition_controller.dart';
@@ -43,14 +43,10 @@ class TransitionView extends GetView<TransitionController> {
                                   ...element['transactions']
                                       .map((e) => ListTile(
                                             title: Text(
-                                              e['detailJson']['tags']
+                                              '${e['detailJson']['tags']
                                                       .toString()
                                                       .replaceAll('[', '')
-                                                      .replaceAll(']', '') +
-                                                  '\n' +
-                                                  'Resulting Balance :' +
-                                                  e['resultingAmount']
-                                                      .toString(),
+                                                      .replaceAll(']', '')}\nResulting Balance :${e['resultingAmount']}',
                                             ),
                                             trailing: Text('Rs.${e['amount']}'),
                                             subtitle: Text(e['detailJson']

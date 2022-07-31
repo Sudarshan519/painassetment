@@ -1,7 +1,8 @@
+ 
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
-import 'package:paymentmanagement/app/utils/requestHelper.dart';
+import 'package:paymentmanagement/app/utils/request_helper.dart';
 
 class BanksController extends GetxController {
   final DashboardController homeController = Get.find();
@@ -13,7 +14,7 @@ class BanksController extends GetxController {
     bankloading.value = true;
     var res = await requestHandler.sendRequest('GET', ApiEndpoints.bank,
         token: homeController.token.value);
-    print(res);
+   
     bankloading.value = false;
     banks.addAll(res);
   }

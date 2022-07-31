@@ -53,37 +53,38 @@ class ChequeTransactionsView extends GetView<ChequeTransactionsController> {
                   Obx(() => Column(
                         children: controller.cheques
                             .map((element) => Card(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // Text(element.toString()),
-                                      Text(element['drCr'] == true
-                                          ? 'Debit'
-                                          : "Credit"),
-                                      Text(element['chequeDate'].toString()),
-                                      const Text("Cheque Number"),
-                                      Text(element['chequeNumber'].toString()),
-                                      const Text("Amount"),
-                                      Text(element['amount'].toString()),
-                                      const Text("Bounce"),
-                                      Text(element['bounce'].toString()),
-                                      const Text("Description"),
-                                      Text(element['detailJson']['decsription']
-                                          .toString()),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: ElevatedButton(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // Text(element.toString()),
+                                        Text(element['drCr'] == true
+                                            ? 'Debit'
+                                            : "Credit"),
+                                        Text(element['chequeDate'].toString()),
+                                        const Text("Cheque Number"),
+                                        Text(
+                                            element['chequeNumber'].toString()),
+                                        const Text("Amount"),
+                                        Text(element['amount'].toString()),
+                                        const Text("Bounce"),
+                                        Text(element['bounce'].toString()),
+                                        const Text("Description"),
+                                        Text(element['detailJson']
+                                                ['decsription']
+                                            .toString()),
+                                        Row(
+                                          children: [
+                                            ElevatedButton(
                                                 onPressed: () {
                                                   controller
                                                       .bounceCheque(element);
                                                 },
                                                 child: const Text("Bounce")),
-                                          ),
-                                          const SizedBox(width: 10),
-                                          Expanded(
-                                            child: ElevatedButton(
+                                            const SizedBox(width: 10),
+                                            ElevatedButton(
                                                 onPressed: () {
                                                   var formKey =
                                                       GlobalKey<FormState>();
@@ -151,11 +152,11 @@ class ChequeTransactionsView extends GetView<ChequeTransactionsController> {
                                                     ),
                                                   ));
                                                 },
-                                                child: const Text("Clear")),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                                child: const Text("Clear"))
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ))
                             .toList(),

@@ -30,9 +30,9 @@ class Signup extends StatelessWidget {
           label: 'Username',
           controller: authController.username,
         ),
-        // SizedBox(
-        //   height: 20,
-        // ),
+        SizedBox(
+          height: 20,
+        ),
         CustomTextField(
           validator: validateIsEmpty,
           label: 'Password',

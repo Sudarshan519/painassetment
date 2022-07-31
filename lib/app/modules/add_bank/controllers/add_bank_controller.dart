@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:paymentmanagement/app/utils/getsnackbar.dart';
-import 'package:paymentmanagement/app/utils/requestHelper.dart';
+import 'package:paymentmanagement/app/utils/request_helper.dart';
 
 class AddBankController extends GetxController {
   //TODO: Implement AddBankController
@@ -37,7 +37,7 @@ class AddBankController extends GetxController {
     if (res is String) {
       getSnackbar(message: res, bgColor: Colors.red);
     } else {
-      print(res);
+      debugPrint(res);
       Get.back();
     }
   }

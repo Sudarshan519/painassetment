@@ -2,10 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
-import 'package:paymentmanagement/app/utils/requestHelper.dart';
+import 'package:paymentmanagement/app/utils/request_helper.dart';
 
-class AddAccountController extends GetxController {
-  //TODO: Implement AddAccountController
+class AddAccountController extends GetxController { 
   final name = TextEditingController();
   final startingamt = TextEditingController();
   final DashboardController dashboardController = Get.find();
@@ -32,7 +31,7 @@ class AddAccountController extends GetxController {
           'asset': true,
           "openingBalance": double.parse(startingamt.text)
         });
-    print(res);
+    debugPrint(res);
     if (res is String) {
     } else {
       Get.back();

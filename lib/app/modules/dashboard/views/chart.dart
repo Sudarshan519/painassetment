@@ -37,7 +37,7 @@ class ChartWidget extends StatelessWidget {
                 onChanged: (v) {}),
         
        ],),
-       SizedBox(
+       Container(color:Colors.white,
           height: 300,
           width: double.infinity,
           child: SfCartesianChart(  

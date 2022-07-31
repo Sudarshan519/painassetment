@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:paymentmanagement/app/utils/getsnackbar.dart';
-import 'package:paymentmanagement/app/utils/requestHelper.dart';
+import 'package:paymentmanagement/app/utils/request_helper.dart';
 
 class ChequeTransactionsController extends GetxController {
   final DashboardController dashboardController = Get.find();
@@ -43,7 +43,8 @@ class ChequeTransactionsController extends GetxController {
         'GET', "${ApiEndpoints.party}/cheque/transactions",
         token: dashboardController.token.value, requestBody: body);
     if (resp is String) {
-      getSnackbar(message: resp);
+      print(resp);
+      getSnackbar(message: resp.toString());
     } else {
       cheques.addAll(resp);
     }
@@ -60,7 +61,7 @@ class ChequeTransactionsController extends GetxController {
           "description": element['detailJson']['decsription'],
           "bounceDate": DateTime.now().toIso8601String()
         });
-    print(resp);
+    debugPrint(resp);
     if (resp is String) {
       getSnackbar(message: resp);
     } else {
@@ -78,7 +79,7 @@ class ChequeTransactionsController extends GetxController {
           "description": element['detailJson']['decsription'],
           "postTo": int.parse(selectedAccountId.value)
         });
-    print(resp);
+    debugPrint(resp);
     if (resp is String) {
       getSnackbar(message: resp);
     } else {

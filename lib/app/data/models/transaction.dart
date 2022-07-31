@@ -41,38 +41,38 @@ class Transaction {
   List<dynamic>? uploadPath;
 
   factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
-        id: json["id"] == null ? null : json["id"],
-        promise: json["promise"] == null ? null : json["promise"],
-        bankName: json["bankName"] == null ? null : json["bankName"],
-        promiseType: json["promiseType"] == null ? null : json["promiseType"],
+        id: json["id"],
+        promise: json["promise"],
+        bankName: json["bankName"],
+        promiseType: json["promiseType"],
         chequeNumber:
-            json["cheque_number"] == null ? null : json["cheque_number"],
-        bounceNo: json["bounce_no"] == null ? null : json["bounce_no"],
-        amount: json["amount"] == null ? null : json["amount"],
+            json["cheque_number"],
+        bounceNo: json["bounce_no"],
+        amount: json["amount"],
         promisedDate:
-            json["promised_date"] == null ? null : json["promised_date"],
-        user: json["user"] == null ? null : json["user"],
-        incoming: json["incoming"] == null ? true : json["incoming"],
+            json["promised_date"],
+        user: json["user"],
+        incoming: json["incoming"] ?? true,
         party: json['party'],
         isprocessing:
-            json["isprocessing"] == null ? true : json["isprocessing"],
+            json["isprocessing"] ?? true,
         uploadPath: json["upload_path"] == null
             ? null
             : List<dynamic>.from(json["upload_path"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "promise": promise == null ? null : promise,
-        "bankName": bankName == null ? null : bankName,
-        "promiseType": promiseType == null ? null : promiseType,
-        "cheque_number": chequeNumber == null ? null : chequeNumber,
-        "bounce_no": bounceNo == null ? null : bounceNo,
-        "amount": amount == null ? null : amount,
-        "promised_date": promisedDate == null ? null : promisedDate,
-        "user": user == null ? null : user,
-        "incoming": incoming == null ? null : incoming,
-        "isprocessing": isprocessing == null ? null : isprocessing,
+        "id": id,
+        "promise": promise,
+        "bankName": bankName,
+        "promiseType": promiseType,
+        "cheque_number": chequeNumber,
+        "bounce_no": bounceNo,
+        "amount": amount,
+        "promised_date": promisedDate,
+        "user": user,
+        "incoming": incoming,
+        "isprocessing": isprocessing,
         "party": party,
         "upload_path": uploadPath == null
             ? []

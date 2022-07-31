@@ -1,10 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
-import 'package:paymentmanagement/app/utils/requestHelper.dart';
+import 'package:paymentmanagement/app/utils/request_helper.dart';
 
-class PartiesController extends GetxController {
-  //TODO: Implement PartiesController
+class PartiesController extends GetxController { 
 
   final count = 0.obs;
   var parties = [].obs;
@@ -20,7 +20,7 @@ class PartiesController extends GetxController {
 
     parties.addAll(res);
     partiesloading.value = false;
-    print(res);
+    debugPrint(res);
   }
 
   var banks = [].obs;
@@ -28,7 +28,7 @@ class PartiesController extends GetxController {
     banks.clear();
     var res = await requestHandler.sendRequest('GET', ApiEndpoints.bank,
         token: dashboardController.token.value);
-    print(res);
+    debugPrint(res);
     banks.addAll(res);
   }
 

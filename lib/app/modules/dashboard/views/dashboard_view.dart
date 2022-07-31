@@ -295,7 +295,7 @@ class AllTransactions extends StatefulWidget {
 class _AllTransactionsState extends State<AllTransactions> {
   @override
   Widget build(BuildContext context) {
-    print(jsonEncode(staticData[0]));
+    debugPrint(jsonEncode(staticData[0]));
     return Scaffold(
       appBar: AppBar(
         title: Text(Get.arguments.toString()),
@@ -303,7 +303,10 @@ class _AllTransactionsState extends State<AllTransactions> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ChartWidget(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ChartWidget(),
+            ),
             ...userData.map((e) => Container(
                 width: double.infinity,
                 // padding:
@@ -333,43 +336,51 @@ class TransactionCard extends StatelessWidget {
   final Transaction transaction;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Payment For: ${transaction.promise}"),
-        Text("Payment Type:${transaction.promiseType}"),
-        if (transaction.promiseType == "CHEQUE")
-          Text("BANK NAME :${transaction.bankName}"),
-        Text("Transaction Amount:${transaction.amount}"),
-        Text("Transaction Date:${transaction.promisedDate}"),
-        Text("Transaction Party:${transaction.user}"),
-        Text(
-            "Transaction Type:${transaction.incoming! ? "Incoming" : "Outgoing"}"),
-        Text(
-            "Transaction Status:${transaction.isprocessing! ? "Pending" : "Completed"}"),
-        const Text("Photos"),
-        Wrap(
-          children: transaction.uploadPath!
-              .map((e) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: InkWell(
-                      onTap: () {
-                        Get.to(() => Scaffold(
-                              body: PhotoView(
-                                imageProvider: NetworkImage(e),
-                              ),
-                            ));
-                      },
-                      child: Image.network(e,
-                          width: double.infinity, fit: BoxFit.fill
-                          // height: 200,
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Payment For: ${transaction.promise}"),
+            Text("Payment Type:${transaction.promiseType}"),
+            if (transaction.promiseType == "CHEQUE")
+              Text("BANK NAME :${transaction.bankName}"),
+            Text("Transaction Amount:${transaction.amount}"),
+            Text("Transaction Date:${transaction.promisedDate}"),
+            Text("Transaction Party:${transaction.user}"),
+            Text(
+                "Transaction Type:${transaction.incoming! ? "Incoming" : "Outgoing"}"),
+            Text(
+                "Transaction Status:${transaction.isprocessing! ? "Pending" : "Completed"}"),
+            const Text("Photos"),
+            Wrap(
+              children: transaction.uploadPath!
+                  .map((e) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(() => Scaffold(
+                                  body: PhotoView(
+                                    imageProvider: NetworkImage(e),
+                                  ),
+                                ));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.network(e,
+                                width: double.infinity, fit: BoxFit.fill
+                                // height: 200,
+                                ),
                           ),
-                    ),
-                  ))
-              .toList(),
+                        ),
+                      ))
+                  .toList(),
+            ),
+            ElevatedButton(onPressed: () {}, child: const Text("Clear Payment"))
+          ],
         ),
-        ElevatedButton(onPressed: () {}, child: const Text("Clear Payment"))
-      ],
+      ),
     );
   }
 }

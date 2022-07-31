@@ -1,23 +1,23 @@
 class ApiEndpoints {
   static const baseUrl =
       "http://54.197.149.55:3000"; //"http://192.168.1.70:3000";
-  static const login = baseUrl + "/auth/login";
-  static const signup = baseUrl + "/user";
-  static const getroles = baseUrl + "/auth/roles";
-  static const addrole = baseUrl + "/auth/role";
+  static const login = "$baseUrl/auth/login";
+  static const signup = "$baseUrl/user";
+  static const getroles = "$baseUrl/auth/roles";
+  static const addrole = "$baseUrl/auth/role";
 
   ///accounts endpoints
   // transactions
-  static const gettransactions = baseUrl + '/account/transaction/';
-  static const posttransaction = baseUrl + '/account/transaction/';
+  static const gettransactions = '$baseUrl/account/transaction/';
+  static const posttransaction = '$baseUrl/account/transaction/';
 
-  static const account = baseUrl + "/account";
+  static const account = "$baseUrl/account";
 
   ///bank get/post
-  static const bank = baseUrl + "/bank";
-  static const bankAccount = bank + '/account';
+  static const bank = "$baseUrl/bank";
+  static const bankAccount = '$bank/account';
 
   //party get/post
-  static const party = baseUrl + '/party';
+  static const party = '$baseUrl/party';
 
 }

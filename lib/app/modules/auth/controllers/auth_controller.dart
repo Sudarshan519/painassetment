@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/routes/app_pages.dart';
 import 'package:paymentmanagement/app/utils/getsnackbar.dart';
-import 'package:paymentmanagement/app/utils/requestHelper.dart';
+import 'package:paymentmanagement/app/utils/request_helper.dart';
 
 class AuthController extends GetxController {
   final count = 0.obs;
