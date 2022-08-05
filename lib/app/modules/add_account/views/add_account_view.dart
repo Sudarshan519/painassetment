@@ -12,6 +12,7 @@ class AddAccountView extends GetView<AddAccountController> {
     final _formkey = GlobalKey<FormState>();
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('AddAccount'),
           centerTitle: true,
         ),

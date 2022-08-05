@@ -18,49 +18,118 @@ class TransitionView extends GetView<TransitionController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: const Text('Transactions'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Obx(
-          () => controller.loading.value
-              ? const CircularProgressIndicator()
-              : controller.transactions.isEmpty
-                  ? const Text("Empty")
-                  : Column(
-                      children: controller.transactions
-                          .map((element) => Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ListTile(
-                                    title: Text(
-                                      element['name'].toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge,
+      body: Obx(
+        () => controller.loading.value
+            ? const CircularProgressIndicator()
+            : controller.transactions.isEmpty
+                ? const Text("Empty")
+                : SingleChildScrollView(
+                    child: Column(
+                        children: controller.transactions
+                            .map((element) => Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                  ),
-                                  ...element['transactions']
-                                      .map((e) => ListTile(
-                                            title: Text(
-                                              '${e['detailJson']['tags']
-                                                      .toString()
-                                                      .replaceAll('[', '')
-                                                      .replaceAll(']', '')}\nResulting Balance :${e['resultingAmount']}',
+                                    const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 18.0,
+                                      ),
+                                      child: Text("BANK NAME"),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 18.0,
+                                      ),
+                                      child: Text(
+                                        element['name']
+                                            .toString()
+                                            .toUpperCase(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge!
+                                            .copyWith(
+                                                color: Colors.teal,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 22),
+                                      ),
+                                    ),
+                                  
+                                    ...element['transactions']
+                                      .map((e) =>
+                                        Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Card(
+                                            color: Colors.green[100],
+                                            shadowColor: Colors.pinkAccent,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 4.0,
+                                                      vertical: 12),
+                                              child: ListTile(
+                                                title: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    // Text(e.toString()),
+                                                    // Text(
+                                                    //   '${e['detailJson']['tags'].toString().replaceAll('[', '').replaceAll(']', '').capitalizeFirst}\nTransferred Amount:'
+                                                    //   'Rs.${e['amount']}\nResulting Balance : Rs.${e['resultingAmount']}',
+                                                    // ),
+                                                    Text(
+                                                      '${e['detailJson']['tags'].toString().replaceAll('[', '').replaceAll(']', '').capitalizeFirst}',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'Transferred Amount : '
+                                                      'Rs.${e['amount']}',
+                                                    ),
+                                                    SizedBox(
+                                                      height: 6,
+                                                    ),
+                                                    Text(
+                                                        'Resulting Balance : Rs.${e['resultingAmount']}'),
+                                                    SizedBox(
+                                                      height: 6,
+                                                    ),
+                                                    Text(
+                                                      'Remarks : ' +
+                                                          e['detailJson'][
+                                                                  'description']
+                                                              .toString(),
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        // color:
+                                                        //     Colors.grey[600],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                            trailing: Text('Rs.${e['amount']}'),
-                                            subtitle: Text(e['detailJson']
-                                                    ['description']
-                                                .toString()),
-                                          )),
-                                ],
-                              ))
-                          .toList()),
-        ),
+                                          ),
+                                        )),
+                                  ],
+                                ))
+                            .toList()),
+                  ),
       ),
       floatingActionButton:
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
           heroTag: 'send',
           onPressed: () async {
             await Get.to(
@@ -70,18 +139,19 @@ class TransitionView extends GetView<TransitionController> {
           },
           child: const Icon(Icons.send),
         ),
-        FloatingActionButton(
-          heroTag: 'receive',
-          onPressed: () async {
-            await Get.to(
-              () => AddTransactions(
-                isSending: false,
-              ),
-            );
-            // Get.toNamed(Routes.ADD_BANK);
-          },
-          child: const Icon(Icons.add),
-        ),
+        // FloatingActionButton(
+        //   heroTag: 'receive',
+        //   backgroundColor: Theme.of(context).primaryColor,
+        //   onPressed: () async {
+        //     await Get.to(
+        //       () => AddTransactions(
+        //         isSending: false,
+        //       ),
+        //     );
+        //     // Get.toNamed(Routes.ADD_BANK);
+        //   },
+        //   child: const Icon(Icons.add),
+        // ),
       ]),
     );
   }
@@ -115,7 +185,9 @@ class AddTransactions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("${isSending ? 'Send' : 'Add'} Payment")),
+        appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+            title: Text("${isSending ? 'Send' : 'Add'} Payment")),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(18.0),
@@ -175,6 +247,8 @@ class AddTransactions extends StatelessWidget {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColor),
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
                             submit();

@@ -13,7 +13,7 @@ class Login extends StatelessWidget {
     return Form(
       key: formkey,
       child: Column(children: [
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
         Text('Login',
@@ -21,7 +21,7 @@ class Login extends StatelessWidget {
                 .textTheme
                 .headline6!
                 .copyWith(fontWeight: FontWeight.bold)),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         CustomTextField(
@@ -29,7 +29,7 @@ class Login extends StatelessWidget {
           label: 'Username',
           controller: authController.username,
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         CustomTextField(
@@ -38,10 +38,10 @@ class Login extends StatelessWidget {
           obscureText: true,
           controller: authController.password,
         ),
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
-        Container(
+        SizedBox(
             height: 60,
             width: double.infinity,
             child: ElevatedButton(
@@ -50,8 +50,8 @@ class Login extends StatelessWidget {
                     authController.loginSubmit();
                   }
                 },
-                child: Text('Login'))),
-        SizedBox(
+                child: const Text('Login'))),
+        const SizedBox(
           height: 20,
         ),
         GestureDetector(
@@ -65,7 +65,7 @@ class Login extends StatelessWidget {
                   TextSpan(
                       text: "Don't have account\n",
                       style: Theme.of(context).textTheme.bodyLarge),
-            TextSpan(text: "Signup"),
+            const TextSpan(text: "Signup"),
                 ],
               )),
         ),

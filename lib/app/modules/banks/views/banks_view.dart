@@ -12,6 +12,7 @@ class BanksView extends GetView<BanksController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: const Text('My Banks'),
         centerTitle: true,
       ),
@@ -23,15 +24,30 @@ class BanksView extends GetView<BanksController> {
                   child: Column(
                     children: controller.banks
                         .map((element) => ListTile(
-                              leading: const Icon(Icons.account_balance),
+                              leading: const Icon(
+                                Icons.account_balance,
+                                color: Colors.teal,
+                              ),
+                              // trailing: Text(element.toString()),
                               subtitle:
-                                  Text(element['accountNumber'].toString()),
-                              title: Text(element['name'].toString()),
+                                  Text(
+                                'Account Number :' +
+                                    element['accountNumber'].toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey[600]),
+                              ),
+                              title: Text(
+                                'Bank Name : ' +
+                                    element["name"].toString().toUpperCase(),
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
                             ))
                         .toList(),
                   ),
                 )),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.teal,
         onPressed: () async {
           await Get.toNamed(Routes.ADD_BANK);
           controller.getBanks();

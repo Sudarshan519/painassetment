@@ -10,31 +10,49 @@ class ChartWidget extends StatelessWidget {
       children: [
 
        Row(children: [
-        const Text("Transaction Payment"),const Spacer(),
-         DropdownButton(
-                iconDisabledColor: Colors.transparent,
-                iconEnabledColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                value: '',
-                items: const [
-                  DropdownMenuItem(
-                    child: Text("Monthly"),
-                    value: '',
+            const Text(
+              "Transaction Payment",
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const Spacer(),
+            Container(
+              // padding: const EdgeInsets.symmetric(horizontal: 3),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  // boxShadow: [BoxShadow(color: Colors.grey)],
+                  border: Border.all(color: Colors.grey, width: 1)),
+              child: DropdownButton(
+                  borderRadius: BorderRadius.circular(10),
+                  dropdownColor: Colors.green[100],
+                  icon: Icon(
+                    Icons.arrow_drop_down,
+                    color: Colors.teal,
                   ),
-                  DropdownMenuItem(
-                    child: Text("Daily"),
-                    value: 'd',
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Yearly"),
-                    value: 'y',
-                  ),
-                  DropdownMenuItem(
-                    child: Text("Monthly"),
-                    value: 'm',
-                  ),
-                ],
-                onChanged: (v) {}),
+                  underline: SizedBox(),
+                  iconDisabledColor: Colors.transparent,
+                  iconEnabledColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  value: '',
+                  items: const [
+                    DropdownMenuItem(
+                      child: Text(" Monthly "),
+                      value: '',
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Daily"),
+                      value: 'd',
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Yearly"),
+                      value: 'y',
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Monthly"),
+                      value: 'm',
+                    ),
+                  ],
+                  onChanged: (v) {}),
+            ),
         
        ],),
        Container(color:Colors.white,

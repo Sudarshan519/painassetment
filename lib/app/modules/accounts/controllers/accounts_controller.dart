@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+ 
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
@@ -19,8 +19,7 @@ class AccountsController extends GetxController {
         token: dashboardController.token.value);
 
     parties.addAll(res);
-    partiesloading.value = false;
-    debugPrint(res);
+    partiesloading.value = false; 
   }
 
   getAccount() async {

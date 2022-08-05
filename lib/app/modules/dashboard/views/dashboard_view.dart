@@ -22,8 +22,8 @@ class DashboardView extends GetView<DashboardController> {
     var scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.blue,
-        drawer: DrawerWidget(),
+        backgroundColor: Theme.of(context).primaryColor,
+        drawer: const DrawerWidget(),
         body: ResponsiveWidget(
           tabletScreen: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,72 +38,76 @@ class DashboardView extends GetView<DashboardController> {
             ],
           ),
           mobileScreen: controller.token.value == ''
-              ? Text('Unauthorized')
+              ? const Text('Unauthorized')
               : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     HeaderWidget(scaffoldKey: scaffoldKey),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(50),
-                      topLeft: Radius.circular(50)),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(50),
-                            topLeft: Radius.circular(50))),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 60,
-                          ),
-                          Center(
-                            child: InkWell(
-                              onTap: () {
-                                Get.to(() => const AllTransactions(),
-                                    arguments: 'HISTORY');
-                              },
-                              child: Container(
-                                width: width * .8,
-                                height: height * .20,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(10),
+                            topLeft: Radius.circular(50)),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(50),
+                                  topLeft: Radius.circular(50))),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 60,
                                 ),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const CircleAvatar(
-                                          child: Icon(Icons.payments_outlined)),
-                                      Text(
-                                        "123 TOTAL Transactions".toUpperCase(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                Center(
+                                  child: InkWell(
+                                    onTap: () {
+                                      Get.to(() => const AllTransactions(),
+                                          arguments: 'HISTORY');
+                                    },
+                                    child: Container(
+                                      width: width * .8,
+                                      height: height * .20,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
-                                      Text(
-                                        'View History',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall,
-                                      )
-                                    ]),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 60,
-                          ),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 25),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            const CircleAvatar(
+                                                backgroundColor: Colors.teal,
+                                                child: Icon(
+                                                  Icons.payments_outlined,
+                                                )),
+                                            Text(
+                                              "123 TOTAL Transactions"
+                                                  .toUpperCase(),
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(
+                                              'View History',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall,
+                                            )
+                                          ]),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 60,
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
@@ -115,16 +119,16 @@ class DashboardView extends GetView<DashboardController> {
                                 const SizedBox(
                                   height: 16,
                                 ),
-                          const AllTransactionsWidgets(),
-                          const ChartWidget(),
-                        ],
+                                const AllTransactionsWidgets(),
+                                const ChartWidget(),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
         ));
   }
 }
@@ -149,35 +153,50 @@ class DrawerWidget extends StatelessWidget {
         //   title: const Text('Roles'),
         // ),
         ListTile(
-          leading: const Icon(Icons.account_balance),
+          leading: const Icon(
+            Icons.account_balance,
+            color: Colors.teal,
+          ),
           onTap: () {
             Get.toNamed(Routes.ACCOUNTS);
           },
           title: const Text('Accounts'),
         ),
         ListTile(
-          leading: const Icon(Icons.monetization_on),
+          leading: const Icon(
+            Icons.monetization_on,
+            color: Colors.teal,
+          ),
           onTap: () {
             Get.toNamed(Routes.BANKS);
           },
           title: const Text('Banks'),
         ),
         ListTile(
-          leading: const Icon(Icons.people),
+          leading: const Icon(
+            Icons.people,
+            color: Colors.teal,
+          ),
           onTap: () {
             Get.toNamed(Routes.PARTIES);
           },
           title: const Text('Parties'),
         ),
         ListTile(
-          leading: const Icon(Icons.people),
+          leading: const Icon(
+            Icons.people,
+            color: Colors.teal,
+          ),
           onTap: () {
             Get.toNamed(Routes.CHEQUE_TRANSACTIONS);
           },
           title: const Text('Cheque Transactions'),
         ),
         ListTile(
-          leading: const Icon(Icons.logout),
+          leading: const Icon(
+            Icons.logout,
+            color: Colors.teal,
+          ),
           onTap: () {
             Get.toNamed(Routes.AUTH);
           },
@@ -200,7 +219,7 @@ class HeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 120,
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
       padding: const EdgeInsets.all(20),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         IconButton(
@@ -215,7 +234,7 @@ class HeaderWidget extends StatelessWidget {
           width: 10,
         ),
         Text(
-          'Welcome JOSH',
+          'Welcome',
           style: Theme.of(context)
               .textTheme
               .titleLarge!
@@ -298,23 +317,25 @@ class _AllTransactionsState extends State<AllTransactions> {
     debugPrint(jsonEncode(staticData[0]));
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text(Get.arguments.toString()),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
+            const Padding(
               padding: const EdgeInsets.all(8.0),
               child: ChartWidget(),
             ),
             ...userData.map((e) => Container(
-                width: double.infinity,
+                // width: double.infinity,
                 // padding:
                 //     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 margin:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
                     // color: Colors.grey[200],
+                    // color: Colors.green[100],
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -336,49 +357,74 @@ class TransactionCard extends StatelessWidget {
   final Transaction transaction;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Payment For: ${transaction.promise}"),
-            Text("Payment Type:${transaction.promiseType}"),
-            if (transaction.promiseType == "CHEQUE")
-              Text("BANK NAME :${transaction.bankName}"),
-            Text("Transaction Amount:${transaction.amount}"),
-            Text("Transaction Date:${transaction.promisedDate}"),
-            Text("Transaction Party:${transaction.user}"),
-            Text(
-                "Transaction Type:${transaction.incoming! ? "Incoming" : "Outgoing"}"),
-            Text(
-                "Transaction Status:${transaction.isprocessing! ? "Pending" : "Completed"}"),
-            const Text("Photos"),
-            Wrap(
-              children: transaction.uploadPath!
-                  .map((e) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(() => Scaffold(
-                                  body: PhotoView(
-                                    imageProvider: NetworkImage(e),
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        shadowColor: Colors.pinkAccent,
+        color: Colors.green[100],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [ 
+              Text(
+                "Payment ${transaction.promise}",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 6,
+              ),
+              Text("Payment Type ${transaction.promiseType}"),
+              SizedBox(
+                height: 6,
+              ),
+              if (transaction.promiseType == "CHEQUE")
+                Text("BANK NAME : ${transaction.bankName}"),
+              Text("Transaction Amount: Rs.${transaction.amount}"),
+              SizedBox(
+                height: 6,
+              ),
+              Text("Transaction Date:${transaction.promisedDate}"),
+              SizedBox(
+                height: 6,
+              ),
+              Text("Transaction Party:${transaction.user}"),
+              Text(
+                  "Transaction Type:${transaction.incoming! ? "Incoming" : "Outgoing"}"),
+              Text(
+                  "Transaction Status:${transaction.isprocessing! ? "Pending" : "Completed"}"),
+              const Text("Photos"),
+              Wrap(
+                children: transaction.uploadPath!
+                    .map((e) => Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(() => Scaffold(
+                                    body: PhotoView(
+                                      imageProvider: NetworkImage(e),
+                                    ),
+                                  ));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.network(e,
+                                  height: 80,
+                                  // width: double.infinity,
+                                  fit: BoxFit.fill
+                                  //  height: 80,
                                   ),
-                                ));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.network(e,
-                                width: double.infinity, fit: BoxFit.fill
-                                // height: 200,
-                                ),
+                            ),
                           ),
-                        ),
-                      ))
-                  .toList(),
-            ),
-            ElevatedButton(onPressed: () {}, child: const Text("Clear Payment"))
-          ],
+                        ))
+                    .toList(),
+              ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.teal),
+                  onPressed: () {},
+                  child: const Text("Clear Payment"))
+            ],
+          ),
         ),
       ),
     );
@@ -409,7 +455,7 @@ class TransitionWidget extends StatelessWidget {
             ),
             height: 100,
             width: 100,
-            child: Icon(icon),
+            child: Icon(icon, color: Colors.teal),
           ),
           const SizedBox(
             height: 10,

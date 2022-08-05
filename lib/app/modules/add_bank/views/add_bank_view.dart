@@ -15,6 +15,7 @@ class AddBankView extends GetView<AddBankController> {
     // print(controller.dashboardController.token.value);
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.teal,
           title: const Text('Add Bank'),
           centerTitle: true,
         ),
@@ -43,6 +44,7 @@ class AddBankView extends GetView<AddBankController> {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.teal),
                         onPressed: () {
                           if (formkey.currentState!.validate()) {
                             controller.submit();

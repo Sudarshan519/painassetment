@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:paymentmanagement/app/routes/app_pages.dart';
 
 import '../controllers/accounts_controller.dart';
@@ -12,9 +13,9 @@ class AccountsView extends GetView<AccountsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: const Text('Accounts Overview'),
-        centerTitle: true,
-        // actions: [Icon(Icons.sort)],
+        centerTitle: true, 
       ),
       body: Obx(() => controller.accountloading.value
           ? const Text("Loading")
@@ -31,7 +32,24 @@ class AccountsView extends GetView<AccountsController> {
                             height: 60,
                             width: 120,
                             child: PopupMenuButton(
-                                child: Center(child: const Text("Filter By")),
+                                child: Center(
+                                    child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.filter_list,
+                                      color: Colors.grey[800],
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Text(
+                                      "Filter By",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                )),
                                 itemBuilder: (_) => [
                                       PopupMenuItem(
                                         onTap: () {
@@ -61,30 +79,62 @@ class AccountsView extends GetView<AccountsController> {
                         ...controller.accounts
                             .map((element) => SizedBox(
                                   width: double.infinity,
-                                  child: InkWell(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: InkWell(
                                       onTap: () {
                                         Get.toNamed(Routes.TRANSITION,
                                             arguments: element["id"]);
                                       },
                                       child: Card(
+                                        color: Colors.green[100],
+                                        shadowColor: Colors.purpleAccent,
                                         child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16.0, vertical: 12),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              // Text(element['id'].toString()),
-                                              Text(element['name'].toString()),
-                                              Text(element['createdAt']
-                                                  .toString()),
+                                              Align(
+                                                alignment: Alignment.topRight,
+                                                child: Text(
+                                                  DateFormat.yMMMEd()
+                                                      .format(DateTime.parse(
+                                                          element['createdAt']))
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.grey[700]),
+                                                ),
+                                              ),
+
+                                              Text("BANK NAME"),
                                               Text(
-                                                  element['amount'].toString()),
-                                              Text(element['externallyManaged']
-                                                  .toString()),
-                                              const Text('Last Transaction'),
-                                              // Text(element['resultingAmount'].toString()),
+                                                element['name']
+                                                    .toString()
+                                                    .toUpperCase(),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                    color: Colors.teal),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              // Text("Externally Managed"),
+                                              // Text(element['externallyManaged']
+                                              //     .toString()),
+                                              const Text(
+                                                'Last Transaction',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
                                               ...element['transactions']
                                                   .map((e) => Column(
                                                         crossAxisAlignment:
@@ -93,10 +143,46 @@ class AccountsView extends GetView<AccountsController> {
                                                         children: [
                                                           Text(e['detailJson']
                                                                   ['tags'][0]
-                                                              .toString()),
-                                                          Text(e['amount']
-                                                              .toString()),
-
+                                                              .toString()
+                                                              .capitalize!),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                "Transaction Amount ",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600),
+                                                              ),
+                                                              Text('Rs.' +
+                                                                  e['amount']
+                                                                      .toString()),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                "Total Amount ",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600),
+                                                              ),
+                                                              Text(
+                                                                'Rs.' +
+                                                                    e['resultingAmount']
+                                                                        .toString(),
+                                                                style:
+                                                                    TextStyle(),
+                                                              ),
+                                                            ],
+                                                          )
                                                           // Text(e['createdAt'])
                                                         ],
                                                       )),
@@ -111,12 +197,15 @@ class AccountsView extends GetView<AccountsController> {
                                             ],
                                           ),
                                         ),
-                                      )),
+                                      ),
+                                    ),
+                                  ),
                                 ))
                             .toList(),
                       ]),
                 )),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
           Get.toNamed(
             Routes.ADD_ACCOUNT,

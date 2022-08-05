@@ -19,6 +19,7 @@ class PartiesView extends GetView<PartiesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: const Text('PartiesView'),
         centerTitle: true,
       ),
@@ -29,7 +30,13 @@ class PartiesView extends GetView<PartiesController> {
               : Column(
                   children: controller.parties
                       .map((element) => ListTile(
-                            leading: const Icon(Icons.person),
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.green[100],
+                              child: const Icon(
+                                Icons.person,
+                                color: Colors.teal,
+                              ),
+                            ),
                             trailing: InkWell(
                                 onTap: () {
                                   if (kDebugMode) {
@@ -43,6 +50,8 @@ class PartiesView extends GetView<PartiesController> {
                                         SizedBox(
                                           width: double.infinity,
                                           child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.teal),
                                               onPressed: () {
                                                 Get.back();
                                                 Get.to(() =>
@@ -53,6 +62,8 @@ class PartiesView extends GetView<PartiesController> {
                                         SizedBox(
                                           width: double.infinity,
                                           child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.teal),
                                               onPressed: () {
                                                 Get.back();
                                                 Get.to(
@@ -68,18 +79,24 @@ class PartiesView extends GetView<PartiesController> {
                                 },
                                 child: const Text('Create \nTransactions')),
                             title: Text(//element.toString() +
-                                element['name'].toString()),
-                            subtitle: Text(element['phone'].toString()),
+                              element['name'].toString().capitalizeFirst!,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              'Phone Number :' + element['phone'].toString(),
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
                           ))
                       .toList(),
                 ))),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () async {
           await Get.toNamed(Routes.ADD_PARTY);
           controller.getParties();
         },
         tooltip: 'Add Payment party',
-        child: const Text('Add'),
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -150,7 +167,9 @@ class AddPartyTransactions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Add Party Transaction")),
+        appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+            title: const Text("Add Party Transaction")),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(18.0),
@@ -315,6 +334,7 @@ class AddPartyTransactions extends StatelessWidget {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.teal),
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
                             submit();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:paymentmanagement/app/utils/validator.dart';
 
 import '../controllers/cheque_transactions_controller.dart';
@@ -10,11 +11,15 @@ class ChequeTransactionsView extends GetView<ChequeTransactionsController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('ChequeTransactionsView'),
           centerTitle: true,
           actions: [
             PopupMenuButton(
-                child: const Center(child: Text("Filter By")),
+                child: Center(
+                    child: Row(
+                  children: [Icon(Icons.filter_list), Text("Filter By")],
+                )),
                 itemBuilder: (_) => [
                       PopupMenuItem(
                         onTap: () {
@@ -46,13 +51,14 @@ class ChequeTransactionsView extends GetView<ChequeTransactionsController> {
           ],
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: controller.loading.value
               ? const Text("Loading")
               : Column(children: [
                   Obx(() => Column(
                         children: controller.cheques
                             .map((element) => Card(
+                                  color: Colors.green[100],
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -60,24 +66,86 @@ class ChequeTransactionsView extends GetView<ChequeTransactionsController> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         // Text(element.toString()),
-                                        Text(element['drCr'] == true
+                                        Row(
+                                          children: [
+                                            Text(
+                                              element['drCr'] == true
                                             ? 'Debit'
-                                            : "Credit"),
-                                        Text(element['chequeDate'].toString()),
-                                        const Text("Cheque Number"),
-                                        Text(
-                                            element['chequeNumber'].toString()),
-                                        const Text("Amount"),
-                                        Text(element['amount'].toString()),
-                                        const Text("Bounce"),
-                                        Text(element['bounce'].toString()),
-                                        const Text("Description"),
+                                                  : "Credit",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.teal,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Spacer(),
+                                            Text(
+                                              DateFormat.yMMMEd().format(
+                                                  DateTime.parse(
+                                                      element['chequeDate']
+                                                          .toString())),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              "Cheque Number : ",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text(element['chequeNumber']
+                                                .toString()),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              "Amount : ",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text('Rs. ' +
+                                                element['amount'].toString()),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              "Bounce : ",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text(element['bounce'].toString()),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 6,
+                                        ),
+                                        const Text(
+                                          "Description",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600),
+                                        ),
                                         Text(element['detailJson']
                                                 ['decsription']
-                                            .toString()),
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
                                         Row(
                                           children: [
                                             ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors.teal,
+                                                ),
                                                 onPressed: () {
                                                   controller
                                                       .bounceCheque(element);
@@ -85,6 +153,9 @@ class ChequeTransactionsView extends GetView<ChequeTransactionsController> {
                                                 child: const Text("Bounce")),
                                             const SizedBox(width: 10),
                                             ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors.teal,
+                                                ),
                                                 onPressed: () {
                                                   var formKey =
                                                       GlobalKey<FormState>();

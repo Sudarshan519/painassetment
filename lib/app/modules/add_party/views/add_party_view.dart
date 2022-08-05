@@ -12,6 +12,7 @@ class AddPartyView extends GetView<AddPartyController> {
     final _formkey = GlobalKey<FormState>();
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('Add Payment Party'),
           centerTitle: true,
         ),
@@ -42,6 +43,9 @@ class AddPartyView extends GetView<AddPartyController> {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Theme.of(context).primaryColor,
+                        ),
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
                             controller.submit();
