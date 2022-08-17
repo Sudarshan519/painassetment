@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
@@ -13,15 +12,6 @@ class AddPartyController extends GetxController {
   final email = TextEditingController();
   final phone = TextEditingController();
   final address = TextEditingController();
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {}
@@ -35,11 +25,17 @@ class AddPartyController extends GetxController {
           "address": address.text,
           "phone": phone.text,
           "email": email.text,
-        });
+        });  
     if (res is String) {
       getSnackbar(message: res, bgColor: Colors.red);
     } else {
-      Get.back();
+     
+    
+      if (res["status"] == 'error') {
+        getSnackbar(message: res['message'].toString());
+      } else {
+        Get.back();
+      }
     }
   }
 }

@@ -30,6 +30,7 @@ class HttpRequestHandler extends GetConnect {
                 'Content-Type': 'application/json',
                 "Authorization": "Bearer $token"
               });
+         
           if (resp.statusCode == 200) {
             return resp.body;
           } else {
@@ -44,6 +45,7 @@ class HttpRequestHandler extends GetConnect {
                   : {
                       'Content-Type': 'application/json',
                     });
+          // print(resp.statusCode);
           if (!resp.hasError) {
             if (resp.statusCode! >= 200 && resp.statusCode! < 300) {
               return resp.body;

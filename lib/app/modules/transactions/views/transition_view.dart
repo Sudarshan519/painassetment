@@ -33,7 +33,7 @@ class TransitionView extends GetView<TransitionController> {
                             .map((element) => Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     const Padding(
@@ -56,7 +56,7 @@ class TransitionView extends GetView<TransitionController> {
                                             .copyWith(
                                                 color: Colors.teal,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 22),
+                                                fontSize: 14),
                                       ),
                                     ),
                                   
@@ -84,36 +84,41 @@ class TransitionView extends GetView<TransitionController> {
                                                     // ),
                                                     Text(
                                                       '${e['detailJson']['tags'].toString().replaceAll('[', '').replaceAll(']', '').capitalizeFirst}',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
+                                                          fontSize: 16,
                                                           fontWeight:
                                                               FontWeight.w600),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 10,
                                                     ),
                                                     Text(
                                                       'Transferred Amount : '
                                                       'Rs.${e['amount']}',
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 6,
                                                     ),
                                                     Text(
-                                                        'Resulting Balance : Rs.${e['resultingAmount']}'),
-                                                    SizedBox(
+                                                      'Resulting Balance : Rs.${e['resultingAmount']}',
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    const SizedBox(
                                                       height: 6,
                                                     ),
                                                     Text(
-                                                      'Remarks : ' +
-                                                          e['detailJson'][
-                                                                  'description']
-                                                              .toString(),
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        // color:
-                                                        //     Colors.grey[600],
-                                                      ),
+                                                      'Remarks : ${e['detailJson']['description'] ?? "NA"}',
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                   ],
                                                 ),

@@ -10,9 +10,11 @@ class ChartWidget extends StatelessWidget {
       children: [
 
        Row(children: [
-            const Text(
-              "Transaction Payment",
-              style: TextStyle(fontWeight: FontWeight.w600),
+            Expanded(
+              child: const Text(
+                "Transaction Payment",
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
             ),
             const Spacer(),
             Container(

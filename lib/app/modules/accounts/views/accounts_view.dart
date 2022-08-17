@@ -39,7 +39,7 @@ class AccountsView extends GetView<AccountsController> {
                                       Icons.filter_list,
                                       color: Colors.grey[800],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     const Text(
@@ -109,21 +109,22 @@ class AccountsView extends GetView<AccountsController> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
+                                                      fontSize: 13,
                                                       color: Colors.grey[700]),
                                                 ),
                                               ),
 
-                                              Text("BANK NAME"),
+                                              const Text("BANK NAME"),
                                               Text(
                                                 element['name']
                                                     .toString()
                                                     .toUpperCase(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 20,
                                                     color: Colors.teal),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               // Text("Externally Managed"),
@@ -132,6 +133,7 @@ class AccountsView extends GetView<AccountsController> {
                                               const Text(
                                                 'Last Transaction',
                                                 style: TextStyle(
+                                                    fontSize: 12,
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
@@ -144,42 +146,54 @@ class AccountsView extends GetView<AccountsController> {
                                                           Text(e['detailJson']
                                                                   ['tags'][0]
                                                               .toString()
-                                                              .capitalize!),
-                                                          SizedBox(
+                                                                .capitalize!,
+                                                            style: const TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          const Text(
+                                                            "Transaction Amount ",
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                          Text(
+                                                            'Rs.${e['amount']}',
+                                                            style: const TextStyle(
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                          const SizedBox(
                                                             height: 10,
                                                           ),
                                                           Row(
                                                             children: [
-                                                              Text(
-                                                                "Transaction Amount ",
-                                                                style: TextStyle(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600),
-                                                              ),
-                                                              Text('Rs.' +
-                                                                  e['amount']
-                                                                      .toString()),
-                                                            ],
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Text(
+                                                              const Text(
                                                                 "Total Amount ",
                                                                 style: TextStyle(
+                                                                    fontSize:
+                                                                        12,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600),
                                                               ),
                                                               Text(
-                                                                'Rs.' +
-                                                                    e['resultingAmount']
-                                                                        .toString(),
-                                                                style:
-                                                                    TextStyle(),
+                                                                'Rs.${e['resultingAmount']}',
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600),
                                                               ),
                                                             ],
                                                           )

@@ -58,69 +58,69 @@ class DashboardView extends GetView<DashboardController> {
                                   topLeft: Radius.circular(50))),
                           child: SingleChildScrollView(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                SizedBox(
                                   height: 60,
                                 ),
-                                Center(
-                                  child: InkWell(
-                                    onTap: () {
-                                      Get.to(() => const AllTransactions(),
-                                          arguments: 'HISTORY');
-                                    },
-                                    child: Container(
-                                      width: width * .8,
-                                      height: height * .20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 25),
-                                      child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            const CircleAvatar(
-                                                backgroundColor: Colors.teal,
-                                                child: Icon(
-                                                  Icons.payments_outlined,
-                                                )),
-                                            Text(
-                                              "123 TOTAL Transactions"
-                                                  .toUpperCase(),
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                              'View History',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall,
-                                            )
-                                          ]),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 60,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    "Our Services",
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                const AllTransactionsWidgets(),
-                                const ChartWidget(),
+                                // Center(
+                                //   child: InkWell(
+                                //     onTap: () {
+                                //       Get.to(() => const AllTransactions(),
+                                //           arguments: 'HISTORY');
+                                //     },
+                                //     child: Container(
+                                //       width: width * .8,
+                                //       height: height * .20,
+                                //       decoration: BoxDecoration(
+                                //         color: Colors.grey[200],
+                                //         borderRadius: BorderRadius.circular(10),
+                                //       ),
+                                //       padding: const EdgeInsets.symmetric(
+                                //           horizontal: 25),
+                                //       child: Column(
+                                //           crossAxisAlignment:
+                                //               CrossAxisAlignment.start,
+                                //           mainAxisAlignment:
+                                //               MainAxisAlignment.spaceEvenly,
+                                //           children: [
+                                //             const CircleAvatar(
+                                //                 backgroundColor: Colors.teal,
+                                //                 child: Icon(
+                                //                   Icons.payments_outlined,
+                                //                 )),
+                                //             Text(
+                                //               "123 TOTAL Transactions"
+                                //                   .toUpperCase(),
+                                //               style: const TextStyle(
+                                //                   fontWeight: FontWeight.bold),
+                                //             ),
+                                //             Text(
+                                //               'View History',
+                                //               style: Theme.of(context)
+                                //                   .textTheme
+                                //                   .bodySmall,
+                                //             )
+                                //           ]),
+                                //     ),
+                                //   ),
+                                // ),
+                                // const SizedBox(
+                                //   height: 60,
+                                // ),
+                                // Padding(
+                                //   padding: const EdgeInsets.all(8.0),
+                                //   child: Text(
+                                //     "Our Services",
+                                //     style:
+                                //         Theme.of(context).textTheme.titleLarge,
+                                //   ),
+                                // ),
+                                // const SizedBox(
+                                //   height: 16,
+                                // ),
+                                AllTransactionsWidgets(),
+                                // const ChartWidget(),
                               ],
                             ),
                           ),
@@ -243,7 +243,7 @@ class HeaderWidget extends StatelessWidget {
         const Spacer(),
         const CircleAvatar(
           backgroundColor: Colors.white,
-          child: Icon(Icons.person),
+          child: Icon(Icons.person, color: Colors.teal),
         ),
       ]),
     );
@@ -259,40 +259,57 @@ class AllTransactionsWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       children: [
+
         TransitionWidget(
-          label: 'All Trans',
-          onTap: () =>
-              Get.to(const AllTransactions(), arguments: "All Transactions"),
-          icon: Icons.track_changes,
-        ),
+            label: 'Accounts',
+            icon: Icons.account_balance,
+            onTap: () => Get.toNamed(Routes.ACCOUNTS)),
         TransitionWidget(
-          onTap: () => Get.to(const AllTransactions(),
-              arguments: "Pending Transactions"),
-          label: 'Pending Trans',
-          icon: Icons.pending,
-        ),
+            label: 'Banks',
+            icon: Icons.attach_money_outlined,
+            onTap: () => Get.toNamed(Routes.BANKS)),
         TransitionWidget(
-          onTap: () => Get.to(const AllTransactions(),
-              arguments: "Outgoing Transactions"),
-          label: 'Outgoing Trans',
-          icon: Icons.outbond,
-        ),
+            label: 'Parties',
+            icon: Icons.people,
+            onTap: () => Get.toNamed(Routes.PARTIES)),
         TransitionWidget(
-          onTap: () => Get.to(const AllTransactions(),
-              arguments: "Incoming Transactions"),
-          label: 'Incoming Trans',
-          icon: Icons.move_to_inbox,
-        ),
-        TransitionWidget(
-          onTap: () => Get.toNamed(Routes.REGISTER_INCOMING_TRANSACTIONS),
-          label: 'Register Incoming Trans',
-          icon: Icons.app_registration,
-        ),
-        TransitionWidget(
-          onTap: () => Get.toNamed(Routes.REGISTER_OUTGOING_TRANSACTIONS),
-          label: 'Register Outgoing Trans',
-          icon: Icons.app_registration,
-        ),
+            label: 'Pending ',
+            icon: Icons.people,
+            onTap: () => Get.toNamed(Routes.CHEQUE_TRANSACTIONS)),
+        // TransitionWidget(
+        //   label: 'All Trans',
+        //   onTap: () =>
+        //       Get.to(const AllTransactions(), arguments: "All Transactions"),
+        //   icon: Icons.track_changes,
+        // ),
+        // TransitionWidget(
+        //   onTap: () => Get.to(const AllTransactions(),
+        //       arguments: "Pending Transactions"),
+        //   label: 'Pending Trans',
+        //   icon: Icons.pending,
+        // ),
+        // TransitionWidget(
+        //   onTap: () => Get.to(const AllTransactions(),
+        //       arguments: "Outgoing Transactions"),
+        //   label: 'Outgoing Trans',
+        //   icon: Icons.outbond,
+        // ),
+        // TransitionWidget(
+        //   onTap: () => Get.to(const AllTransactions(),
+        //       arguments: "Incoming Transactions"),
+        //   label: 'Incoming Trans',
+        //   icon: Icons.move_to_inbox,
+        // ),
+        // TransitionWidget(
+        //   onTap: () => Get.toNamed(Routes.REGISTER_INCOMING_TRANSACTIONS),
+        //   label: 'Register Incoming Trans',
+        //   icon: Icons.app_registration,
+        // ),
+        // TransitionWidget(
+        //   onTap: () => Get.toNamed(Routes.REGISTER_OUTGOING_TRANSACTIONS),
+        //   label: 'Register Outgoing Trans',
+        //   icon: Icons.app_registration,
+        // ),
         // TransitionWidget(
         //   label: 'All Incoming Trans',
         //   icon: Icons.money,
@@ -314,7 +331,8 @@ class AllTransactions extends StatefulWidget {
 class _AllTransactionsState extends State<AllTransactions> {
   @override
   Widget build(BuildContext context) {
-    debugPrint(jsonEncode(staticData[0]));
+    
+    // debugPrint(jsonEncode(staticData[0]));
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -453,8 +471,8 @@ class TransitionWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: Colors.grey[200],
             ),
-            height: 100,
-            width: 100,
+            height: 80,
+            width: 80,
             child: Icon(icon, color: Colors.teal),
           ),
           const SizedBox(
@@ -468,7 +486,7 @@ class TransitionWidget extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!
-                  .copyWith(color: Colors.grey[700]),
+                  .copyWith(color: Colors.teal, fontWeight: FontWeight.w600),
             ),
           ),
           const SizedBox(

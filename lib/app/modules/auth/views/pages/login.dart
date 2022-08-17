@@ -105,7 +105,7 @@ class CustomTextField extends StatelessWidget {
             decoration: InputDecoration(
               label: Text(label),
               // filled: true,
-              // border: OutlineInputBorder(borderSide: BorderSide.none)
+              // border: OutlineInputBorder()
             ),
           )
         : TextFormField(
@@ -118,6 +118,7 @@ class CustomTextField extends StatelessWidget {
             decoration: InputDecoration(
               label: Text(label), 
               // filled: true,
+              // border: OutlineInputBorder()
               // border: OutlineInputBorder(borderSide: BorderSide.none)
       ),
     );

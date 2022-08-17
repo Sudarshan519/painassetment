@@ -41,9 +41,10 @@ class AuthController extends GetxController {
         color: Colors.white,
         child: const CircularProgressIndicator(),
       ),
-    )); 
+    ));
     var result = await requestHandler.sendRequest('POST', ApiEndpoints.login,
         requestBody: {"username": username.text, "password": password.text});
+    // print(result);
     Get.back();
     if (result['status'] == "error") {
       getSnackbar(message: result['message']);

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
@@ -42,8 +41,9 @@ class ChequeTransactionsController extends GetxController {
     var resp = await requestHandler.sendRequest(
         'GET', "${ApiEndpoints.party}/cheque/transactions",
         token: dashboardController.token.value, requestBody: body);
+    // print(resp);
     if (resp is String) {
-      print(resp);
+      // print(resp);
       getSnackbar(message: resp.toString());
     } else {
       cheques.addAll(resp);
@@ -61,7 +61,7 @@ class ChequeTransactionsController extends GetxController {
           "description": element['detailJson']['decsription'],
           "bounceDate": DateTime.now().toIso8601String()
         });
-    debugPrint(resp);
+    // print(resp);
     if (resp is String) {
       getSnackbar(message: resp);
     } else {
@@ -70,6 +70,7 @@ class ChequeTransactionsController extends GetxController {
   }
 
   clearCheque(element) async {
+    // print(int.parse(element["chequeNumber"]));
     var resp = await requestHandler.sendRequest(
         'POST', "${ApiEndpoints.party}/cheque/clear",
         token: dashboardController.token.value,
@@ -79,24 +80,19 @@ class ChequeTransactionsController extends GetxController {
           "description": element['detailJson']['decsription'],
           "postTo": int.parse(selectedAccountId.value)
         });
-    debugPrint(resp);
+    // print(resp);
     if (resp is String) {
       getSnackbar(message: resp);
     } else {
       Get.back();
       if (resp['status'] == 'error') {
-        getSnackbar(message: resp['message']);
+        getSnackbar(message: resp['message'].toString());
       } else {
         getChequeTransactions();
       }
 
       // cheques.addAll(resp);
     }
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

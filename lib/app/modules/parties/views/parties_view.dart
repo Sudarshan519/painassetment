@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/auth/views/pages/login.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
@@ -30,6 +31,9 @@ class PartiesView extends GetView<PartiesController> {
               : Column(
                   children: controller.parties
                       .map((element) => ListTile(
+                            onTap: () => Get.to(
+                                () => const PartyTransactionDetail(),
+                                arguments: element['id']),
                             leading: CircleAvatar(
                               backgroundColor: Colors.green[100],
                               child: const Icon(
@@ -78,7 +82,8 @@ class PartiesView extends GetView<PartiesController> {
                                   ));
                                 },
                                 child: const Text('Create \nTransactions')),
-                            title: Text(//element.toString() +
+                            title: Text(
+                              //element.toString() +
                               element['name'].toString().capitalizeFirst!,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -155,7 +160,6 @@ class AddPartyTransactions extends StatelessWidget {
                 "description": desc.text,
                 "received": addPartyTransactionController.isReceived.value
               });
-    debugPrint(res);
     if (res['status'] == 'error') {
       getSnackbar(message: res['message'], bgColor: Colors.red);
     } else {
@@ -195,9 +199,11 @@ class AddPartyTransactions extends StatelessWidget {
                         const DropdownMenuItem(
                             value: '', child: Text('Create Party'))
                       ],
-                      onChanged: (String? v) {
+                      onChanged: (String? v) async {
                         if (v == '') {
-                          Get.toNamed(Routes.ADD_PARTY);
+                          await Get.toNamed(Routes.ADD_PARTY);
+                          
+                          partiesController.getParties();
                         } else {
                           partyId.text = v.toString();
                         }
@@ -345,5 +351,299 @@ class AddPartyTransactions extends StatelessWidget {
             ),
           ),
         ));
+  }
+}
+
+class PartyDetailController extends GetxController {
+  var id = ''.obs;
+  var data = {}.obs;
+  var loading = false.obs;
+  DashboardController homeController = Get.find();
+  @override
+  void onInit() {
+    id.value = Get.arguments.toString();
+    getPartyTransactions();
+    super.onInit();
+  }
+
+  void getPartyTransactions() async {
+    loading.value = true;
+    var resp = await requestHandler.sendRequest(
+        'GET', "${ApiEndpoints.party}/${id.value}",
+        token: homeController.token.value,
+        requestBody: {"chequeTransactions": true, "accountTransactions": true});
+    if (resp is String) {
+    } else {
+      data.value = resp;
+    }
+    loading.value = false;
+  }
+}
+
+class PartyTransactionDetail extends StatelessWidget {
+  const PartyTransactionDetail({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.put(PartyDetailController());
+    return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          title: const Text("Party Transactions")),
+      body: SafeArea(
+        child: Obx(() => controller.loading.value
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.teal,
+                ),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        child: Column(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                "Party Informaition",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            ListTile(
+                              leading: const Icon(
+                                Icons.person,
+                                color: Colors.teal,
+                              ),
+                              title: Text(
+                                controller.data.value['name']
+                                    .toString()
+                                    .capitalize!,
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            ListTile(
+                              leading: const Icon(
+                                Icons.mail,
+                                color: Colors.teal,
+                              ),
+                              title: Text(
+                                controller.data.value['email']
+                                    .toString()
+                                    .capitalize!,
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.location_on_outlined,
+                                  color: Colors.teal),
+                              title: Text(
+                                controller.data.value['address']
+                                    .toString()
+                                    .capitalize!,
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(
+                                controller.data.value['phone']
+                                    .toString()
+                                    .capitalize!,
+                                style: const TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                              leading: const Icon(
+                                Icons.phone,
+                                color: Colors.teal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    controller.data['chequeTransactions'].length == 0
+                        ? const Text("No transactions")
+                        : Column(
+                            children: [
+                              ...controller.data['chequeTransactions']
+                                  .map((e) => Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10),
+                                        child: DetailCard(
+                                          element: e,
+                                          controller: controller,
+                                        ),
+                                      ))
+                            ],
+                          ),
+                    // Text(controller.data.value.toString())
+                  ],
+                ),
+              )),
+      ),
+    );
+  }
+}
+
+class DetailCard extends StatelessWidget {
+  const DetailCard({Key? key, this.element, this.controller}) : super(key: key);
+  final element;
+  final controller;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: element['drCr'] == true ? Colors.red[50] : Color(0xffe9fff3),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Text(element.toString()),
+            Row(
+              children: [
+                Text(
+                  element['drCr'] == true ? 'Debit' : "Credit",
+                  style: const TextStyle(
+                      fontSize: 20,
+                      // color: Colors.teal,
+                      fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                Text(
+                  DateFormat.yMMMEd()
+                      .format(DateTime.parse(element['chequeDate'].toString())),
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  width: 10,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            Row(
+              children: [
+                const Text(
+                  "Cheque no. : ",
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  element['chequeNumber'].toString(),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            Text(
+              'Rs. ${element['amount']}',
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            Row(
+              children: [
+                const Text(
+                  "Bounced : ",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                ),
+                Text(
+                  "${element['bounce']} times",
+                  style: const TextStyle(
+                      fontSize: 13, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 6,
+            ),
+            const Text(
+              "Remarks",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+            ),
+            Text(
+              element['detailJson']['decsription'].toString(),
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            // Row(
+            //   children: [
+            //     ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //           primary: Colors.teal,
+            //         ),
+            //         onPressed: () {
+            //           controller.bounceCheque(element);
+            //         },
+            //         child: const Text("Bounce")),
+            //     const SizedBox(width: 10),
+            //     ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //           primary: Colors.teal,
+            //         ),
+            //         onPressed: () {
+            //           var formKey = GlobalKey<FormState>();
+            //           Get.dialog(AlertDialog(
+            //             content: Form(
+            //               key: formKey,
+            //               child: Column(
+            //                 mainAxisSize: MainAxisSize.min,
+            //                 children: [
+            // DropdownButtonFormField(
+            //     value: controller.selectedAccountId.value,
+            //     validator: validateIsEmpty,
+            //     decoration:
+            //         const InputDecoration(hintText: 'Choose'),
+            //     items: [
+            //       const DropdownMenuItem(
+            //         value: '',
+            //         child: Text('Choose'),
+            //       ),
+            //       ...controller.accounts
+            //           .where((p0) =>
+            //               p0['externallyManaged'] == true)
+            //           .map(
+            //             (element) => DropdownMenuItem(
+            //               value: element['id'].toString(),
+            //               child: Text(element['name']),
+            //             ),
+            //           ),
+            //     ],
+            //     onChanged: (String? v) {
+            //       if (v != '') {
+            //         controller.selectedAccountId.value = v!;
+            //       }
+            //     }),
+            //                   MaterialButton(
+            //                     onPressed: () {
+            //                       if (formKey.currentState!.validate()) {
+            //                         controller.clearCheque(element);
+            //                       }
+            //                     },
+            //                     child: const Text('Subimit'),
+            //                   ),
+            //                 ],
+            //               ),
+            //             ),
+            //           ));
+            //         },
+            //         child: const Text("Clear"))
+            //   ],
+            // )
+          ],
+        ),
+      ),
+    );
   }
 }

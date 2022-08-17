@@ -1,11 +1,10 @@
-import 'package:flutter/foundation.dart';
+ 
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:paymentmanagement/app/utils/request_helper.dart';
 
-class PartiesController extends GetxController { 
-
+class PartiesController extends GetxController {
   final count = 0.obs;
   var parties = [].obs;
   var partiesloading = false.obs;
@@ -17,10 +16,9 @@ class PartiesController extends GetxController {
     parties.clear();
     var res = await requestHandler.sendRequest('GET', ApiEndpoints.party,
         token: dashboardController.token.value);
-
+   
     parties.addAll(res);
     partiesloading.value = false;
-    debugPrint(res);
   }
 
   var banks = [].obs;
@@ -28,7 +26,7 @@ class PartiesController extends GetxController {
     banks.clear();
     var res = await requestHandler.sendRequest('GET', ApiEndpoints.bank,
         token: dashboardController.token.value);
-    debugPrint(res);
+
     banks.addAll(res);
   }
 
@@ -49,10 +47,6 @@ class PartiesController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {}

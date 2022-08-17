@@ -1,4 +1,3 @@
- 
 import 'package:get/get.dart';
 import 'package:paymentmanagement/app/const/api_endpoints.dart';
 import 'package:paymentmanagement/app/modules/dashboard/controllers/dashboard_controller.dart';
@@ -19,12 +18,14 @@ class AccountsController extends GetxController {
         token: dashboardController.token.value);
 
     parties.addAll(res);
-    partiesloading.value = false; 
+    partiesloading.value = false;
   }
 
   getAccount() async {
+    accountloading.value = true;
     var res = await requestHandler.sendRequest('GET', ApiEndpoints.account,
         token: dashboardController.token.value);
+    accountloading.value = false;
     accountloading.value = false;
     accounts.addAll(res);
     allAccounts.addAll(res);

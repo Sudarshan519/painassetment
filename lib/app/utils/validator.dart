@@ -70,7 +70,11 @@ String? validateMaxLength({required String string, int length = 4}) {
 
 /// validate empty string
 String? validateIsEmpty(String? string) {
-  return string!.isEmpty || string.trim() == "" ? "* Required" : null;
+  if (string == null) {
+    return "* Required";
+  } else {
+    return string.isEmpty || string.trim() == "" ? "* Required" : null;
+  }
 }
 
 /// validate min-max length

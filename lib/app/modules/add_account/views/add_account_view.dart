@@ -40,6 +40,7 @@ class AddAccountView extends GetView<AddAccountController> {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.teal),
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
                             controller.submit();
